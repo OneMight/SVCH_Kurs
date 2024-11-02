@@ -1,0 +1,32 @@
+header{
+    display: flex;
+    width: 97%;
+    margin: 35px 18px;
+    justify-content: space-between;
+    align-items: center;
+}
+nav{
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #1F1F1F;
+    font-size: 30px;
+    text-decoration: none;
+    border-radius: 15px;
+    
+}
+.Link{
+    text-decoration: none;
+    color: #a8a8a8;
+    padding: 15px 0;
+}
+.selected{
+    color: #AF2B2B;
+}
+@media screen and (max-width: 768px){
+    nav{
+        display: none;
+    }
+}
+
+
