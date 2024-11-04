@@ -8,6 +8,7 @@
     border-radius: 20px;
     width: 450px;
     height: 430px;
+    z-index: 1;
 }
 .title-news{
   

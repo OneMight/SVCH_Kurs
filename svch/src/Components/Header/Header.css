@@ -19,6 +19,7 @@ nav{
     text-decoration: none;
     color: #a8a8a8;
     padding: 15px 0;
+    transition: color, 0.2s;
 }
 .selected{
     color: #AF2B2B;
@@ -29,4 +30,6 @@ nav{
     }
 }
 
-
+.Link:hover{
+    color: #d93333
+}

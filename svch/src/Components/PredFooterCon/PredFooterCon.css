@@ -1,0 +1,30 @@
+.pred-footer-con{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.text-and-photo{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+   
+    flex-direction: row;
+    align-items: center;
+}
+.con-for-pred-footer{
+    
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text-pred-footer{
+    text-align:justify;
+    font-size: 30px;
+}
+.text-and-photo >img{
+    width: 50%;
+}
