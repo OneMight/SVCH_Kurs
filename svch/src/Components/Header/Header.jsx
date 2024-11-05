@@ -1,6 +1,7 @@
 import './Header.css'
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
+import BurgerMenu from '../BurgerMenu/BurgerMenu'
 export default function Header(){
     const [activeLink,setActiveLink] = useState('/')
     const handleLinkClick = (link) => {
@@ -43,6 +44,7 @@ export default function Header(){
                     News
                 </Link>
             </nav>
+            <BurgerMenu activeLink ={activeLink} handleChangeColor ={handleLinkClick}/>
         </header>
     )
 }

@@ -13,9 +13,19 @@ footer{
     flex-direction: row;
     padding: 40px 0;
 }
+
 .social-container{
     width: 35%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
+@media screen and (max-width: 768px){
+    .footer-con{
+        flex-direction: column-reverse;
+    }
+    .social-container{
+        width: 100%;
+    }
+}
+

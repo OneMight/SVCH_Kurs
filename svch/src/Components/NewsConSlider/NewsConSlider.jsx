@@ -34,14 +34,14 @@ export default function NewsConSlider(){
         <main className='Home-news-con'>
             <section className='slider-con-and-button'>
                 <div className='con-for-slider'>
-                    <img src="./images/Prev.png" alt="" className='left'/>
+                    <img src="./images/Prev.png" alt="" className='left slider-button'/>
                     <div className='container-slider'>
                         <div className='slider'>                   
                             <NewsCon/>
                         </div>
                     </div>
                      
-                    <img src="./images/Next.png" alt="" className='right'/>
+                    <img src="./images/Next.png" alt="" className='right slider-button'/>
                 </div>
                 <button className='more-news-button'>
                     <p>

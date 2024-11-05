@@ -10,7 +10,7 @@ export default function HomeFirstCon(){
             </div>
             <Header/>
             <p className="Center-text">
-                Circuit racing is more than <span>racing</span>
+                Circuit racing is more than <span className="racing">racing</span>
             </p>
             <div className="button-for-reg-log">
                 <button className="button registration">registration</button>

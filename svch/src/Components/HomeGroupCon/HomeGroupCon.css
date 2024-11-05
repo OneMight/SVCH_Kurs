@@ -40,4 +40,21 @@
     transform: translateX(0);
 }
 
+@media screen and (max-width: 768px) {
 
+    .image{
+    
+      transform: translateX(0);
+    }
+    .text{
+        width: 90%;
+    }
+}
+@media screen and (max-width: 320px) {
+    .Title{
+        font-size: 70px;
+    }
+    .text{
+        font-size: 25px;
+    }
+}

@@ -17,8 +17,8 @@ export default function PredFooterCon(){
                 </div>
                 <img src="./images/image-pred-footer.png" alt="" />
             </article>
-            <article className="text-and-photo">
-                <img src="./images/two-cars.png" alt="" />
+            <article className="text-and-photo revert">
+                
                 <div className="con-for-pred-footer">
                     <p className="text-pred-footer">
                         For those who stood at its origins, motorsport is also
@@ -27,6 +27,7 @@ export default function PredFooterCon(){
                         together again as before.
                     </p>
                 </div>
+                <img src="./images/two-cars.png" alt="" />
             </article>
         </main>
     )

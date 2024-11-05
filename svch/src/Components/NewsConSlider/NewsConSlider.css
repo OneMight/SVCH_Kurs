@@ -77,3 +77,9 @@
 .slider-button:hover{
     cursor: pointer;
 }
+
+@media screen and (max-width: 320px){
+    .Home-news-con{
+        display: none;
+    }
+}

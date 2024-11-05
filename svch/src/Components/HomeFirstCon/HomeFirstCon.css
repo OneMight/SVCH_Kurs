@@ -1,5 +1,5 @@
 .first-con{
-   
+   position: relative;
     background-repeat: no-repeat;
     background-size:cover;
     display: flex;
@@ -20,7 +20,7 @@
     z-index: -1000;
     overflow: hidden;
 }
-span{
+.racing{
  color: #AF2B2B;
 }
 #Back-video{
@@ -60,7 +60,7 @@ span{
 }
 .button-for-reg-log{
     width: 45%;
-   min-width: 500px;
+   min-width: 700px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -81,4 +81,48 @@ span{
 .logining:hover{
     background-color: #771818;
     color: #cac8c8;
+}
+
+@media screen and (max-width: 768px) {
+    .button-for-reg-log{
+        width: 100%;
+        justify-content: space-around;
+        min-width: auto;
+    }
+    .Center-text{
+        width: 70%;
+        font-size: 60px;
+        margin: 0;
+    }
+    .button{
+        width: 200px;
+    }
+
+    .first-con{
+        max-height: 900px;
+    }
+    .video-background{
+        min-height: 900px;
+    }
+    
+}
+@media screen and (max-width:320px) {
+    .Center-text{
+        width: 90%;
+        font-size: 40px;
+        margin: 0;
+        margin-bottom: 70px;
+        line-height: normal
+    }
+    .button-for-reg-log{
+        flex-direction: column;
+    }
+    .first-con{
+        max-height: 650px;
+    }
+    .video-background{
+        min-height: 650px;
+       
+    }
+   
 }
