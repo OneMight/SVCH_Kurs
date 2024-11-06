@@ -14,8 +14,8 @@ export default function HomeFirstCon(){
                 Circuit racing is more than <span className="racing">racing</span>
             </p>
             <div className="button-for-reg-log">
-                <button className="button registration" ><Link to='/registrarion' className="button-text" >registration</Link></button>
-                <button className="button logining"><Link to='/logining' className="button-text">log in</Link></button>
+                <Link to='/registration'><button className="button registration">registration</button></Link>
+                <Link to='/logining'><button className="button logining">log in</button></Link>
             </div>
         </main>
     )
