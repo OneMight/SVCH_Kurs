@@ -1,11 +1,47 @@
 
 const { Pilot } = require('../models/models')
-
+const { Op } = require('sequelize');
 class PilotController{
 
    async getPilots (req,res) {
-        const groups = await Pilot.findAll();
-        return res.json(groups);
+        const { page = 1, limit = 10, sortBy = 'idPilot', order = 'ASC', search = '', filter = {} } = req.query;
+        const offset = (page - 1) * limit;
+        const where ={}    
+        if(search){
+            where[Op.or]= [
+                {PilotsName:{[Op.like]: `%${search}%`}},
+                {PilotsSurname:{[Op.like]: `%${search}%`}},
+            ]
+        }
+        for(const key in filter){
+            if(filter.hasOwnProperty(key)){
+                where[key] = filter[key];
+            }
+        }
+        const data = await Pilot.findAndCountAll({
+            where,
+            limit,
+            offset,
+            order: [[sortBy,order]]
+         });
+         return res.json({
+            total: data.count,
+            pages: Math.ceil(data.count / limit),
+            data: data.rows
+        })
+    }
+
+    async getById(req,res){
+        try{
+            const id = req.params.id;
+            const data = await Pilot.findByPk(id);
+            if(!data){
+                return res.status(404).json({message: "Pilot not found"})
+            }
+            return res.json(data)
+        }catch(err){
+            return res.status(500).json({message : "Failed to retrieve pilot "+ err})
+        }
     }
    async createPilot (req,res){
         const {PilotsName, PilotsSurname,PilotsBiography} = req.body;
