@@ -2,12 +2,13 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Registration from './Pages/Registration';
 import Logining from './Pages/Logining';
 import HomePage from './Pages/HomePage';
+import GroupPage from './Pages/Group'
 export default function App() {
   return (
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage/>}/>
-          <Route path='/group' element={<HomePage/>}/>
+          <Route path='/group' element={<GroupPage/>}/>
           <Route path='/teams' element={<HomePage/>}/>
           <Route path='/pilots' element={<HomePage/>}/>
           <Route path='/news' element={<HomePage/>}/>

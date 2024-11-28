@@ -19,7 +19,7 @@ export default function Header(){
                 >
                     Home
                 </Link>
-                <Link to='/'
+                <Link to='/group'
                 className={`Link ${activeLink === '/groups' ? 'selected' : ''}`}
                 onClick={() => handleLinkClick('/groups')}
                 >
