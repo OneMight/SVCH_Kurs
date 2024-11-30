@@ -4,7 +4,7 @@ export const fetchTeams = createAsyncThunk(
     'teams/fetchTeams',async(page,{rejectWithValue}) =>{
         try{
             const response = await axios.get(`http://localhost:5000/api/teams?limit=7&page=${page}`)
-            console.log(response.data)
+            
             return response.data;
             }
         catch(error){

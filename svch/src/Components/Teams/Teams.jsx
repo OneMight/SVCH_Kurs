@@ -26,7 +26,7 @@ export default function Teams(){
             dispatch(searchTeams(search))
         }
         else{
-            dispatch(fetchTeams())
+            dispatch(fetchTeams(currenctpage));
         }
     }
     const SwitchRight = ()=>{
@@ -40,7 +40,7 @@ export default function Teams(){
         }
     }
     const SwitchLeft =()=>{
-        if(currenctpage - 1 == 0){
+        if(currenctpage - 1 === 0){
             alert("Минимальная страницы")
         }
         else{
@@ -54,18 +54,18 @@ export default function Teams(){
             {status === 'loading' && <h2>Loading</h2>}
             {error && <h2>An Error occured: {error}</h2>}
             <div className='search-input'>
-                <input type="text" onChange={HandleSearch} value={search}/>
-                <button onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
+                <input className='input' type="text" onChange={HandleSearch} value={search} placeholder='Search....'/>
+                <button className='search' onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
             </div>
             
             <section className='teams-data'>
                     <ConWithInfTeams team = {data}/> 
             </section>
             <div className='navigate'>
-                <button onClick={()=> SwitchLeft()}>left</button>
+                <button className='navigate-button' onClick={()=> SwitchLeft()}><img src='./images/arrow-left-navigate.png' alt=''/></button>
                 <p>{currenctpage} / {teams.pages}</p>
 
-                <button onClick={() => SwitchRight()}>right</button>  
+                <button className='navigate-button' onClick={() => SwitchRight()}><img src='./images/arrow-right-navigate.png' alt=''/></button>  
             </div>
        
         </main>

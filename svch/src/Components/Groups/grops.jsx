@@ -34,8 +34,8 @@ const data = groups.data || [];
             {status === 'loading' && <h2>Loading</h2>}
             {error && <h2>An Error occured: {error}</h2>}
             <div className='search-input'>
-                <input type="text" onChange={HandleSearch} value={search}/>
-                <button onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
+                <input className='input' type="text" onChange={HandleSearch} value={search} placeholder='Search....'/>
+                <button className='search' onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
             </div>
             
             <section className='groups-data'>
