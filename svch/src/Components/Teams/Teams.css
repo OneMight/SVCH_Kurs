@@ -5,7 +5,7 @@ main{
     flex-direction: column;
 }
 
-.groups-data{
+.teams-data{
     background-color: #523634;
     border-radius: 30px;
     display: flex;
@@ -16,4 +16,9 @@ main{
     gap: 40px;
     padding: 20px;
     width: 75%;
+}
+.navigate{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }

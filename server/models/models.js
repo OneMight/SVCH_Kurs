@@ -5,14 +5,16 @@ const Group = sequelize.define('Groups',{
     idGroup:{type:DataTypes.BIGINT,primaryKey:true, autoIncrement:true},
     groupName:{type:DataTypes.CHAR},
     desciption:{type:DataTypes.TEXT},
-    imageGroup:{type:DataTypes.STRING}
+    imageGroup:{type:DataTypes.STRING},
+    hidendisc:{type:DataTypes.TEXT}
 })
 
 const Team = sequelize.define('Teams',{
     idTeam: {type:DataTypes.BIGINT, primaryKey:true, autoIncrement:true},
     teamName:{type:DataTypes.CHAR},
     desciption:{type:DataTypes.TEXT},
-    photoTeam:{type:DataTypes.STRING}
+    photoTeam:{type:DataTypes.STRING},
+    hidendisc:{type:DataTypes.TEXT}
 })
 
 const Pilot = sequelize.define('Pilots',{

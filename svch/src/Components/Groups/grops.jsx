@@ -1,73 +1,45 @@
-import axios from 'axios';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchGroups, searchGroups} from '../../store/Slices/groupSlicer'
 import './grops.css'
-import { useEffect, useState } from 'react';
+import ConWithInf from '../ConWithInf/ConWithInf'
 
 export default function Groups(){
-    const [groups, setgroups] = useState([]);
-    const [search, setSearch] = useState('')
-    useEffect(()=>{
-        axios
-        .get(`http://localhost:5000/api/group?search=${search}`)
-        .then((res) =>{
-            // console.log('результаты:')
-            // console.log(res)
-            setgroups([res.data])
-       
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
-    },[])
 
-    const data = groups.map(group =>{
-        return group.data
-    });
-    
-    const HandleSearch = (e)=>{
+const dispatch = useDispatch()
+const {status,error, groups } = useSelector(state => state.groups)
+const [search, setSearch] = useState('')
+const data = groups.data || [];
+    useEffect(()=>{
+        dispatch(fetchGroups());
+       
+    },[dispatch])
+
+    const HandleSearch = (e) => {
         setSearch(e.target.value)
     }
-    const buttonSearch = document.getElementById('search')
-    buttonSearch.addEventListener('click', () =>{
-        axios
-        .get(`http://localhost:5000/api/group?${search}`)
-        .then((res) =>{
-            // console.log('результаты:')
-            // console.log(res)
-            setgroups([res.data])
-       
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
-    })
-    console.log(data);
+
+    const Search = () =>{
+        if(search){
+            dispatch(searchGroups(search))
+        }
+        else{
+            dispatch(fetchGroups());
+        }
+    }
+
+
     return(
         <main className='group-main'>
+            {status === 'loading' && <h2>Loading</h2>}
+            {error && <h2>An Error occured: {error}</h2>}
             <div className='search-input'>
-                <input type="text" onChange={HandleSearch} />
-                <button id='search'><img src="./images/search-normal.png" alt="" /></button>
+                <input type="text" onChange={HandleSearch} value={search}/>
+                <button onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
             </div>
+            
             <section className='groups-data'>
-                {
-                    data[0].map(group =>(
-                
-                        <div className='group-inf'>
-                            <div className='image-div'>
-                                
-                                <img src={`images/${group.imageGroup}`} alt="" />
-                            </div>
-                            <div className='about-group'>
-                                <div className='title-div'>
-                                    <p className='group-name'>
-                                        {group.groupName}
-                                    </p>
-                                </div>
-                                <p className='desc-group'>{group.desciption}</p>  
-                            </div>
-                            
-                        </div>
-                    ))
-                }
+                    <ConWithInf group = {data}/> 
             </section>
         </main>
             

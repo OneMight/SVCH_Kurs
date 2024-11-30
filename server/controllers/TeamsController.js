@@ -44,12 +44,13 @@ class TeamController {
         }
     }
     async createTeam(req, res) {
-        const { teamName, description, photoTeam } = req.body;
+        const { teamName, desciption, photoTeam, hidendisc} = req.body;
         try {
             const team = await Team.create({
                 teamName,
-                description,
-                photoTeam
+                desciption,
+                photoTeam,
+                hidendisc
             });
             return res.status(201).json(team);
         } catch (error) {

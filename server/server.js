@@ -4,7 +4,7 @@ const cors = require('cors');
 const express = require('express')
 const sequelize = require('./db.js');
 const routes = require('./routes/index.js')
-const filelink = path.join(__dirname, '../svch/public/index.html');
+
 const PORT = process.env.PORT;
 const groupRouter = require('./routes/GoupRouter.js');
 const PilotRouter = require('./routes/PilotsRouter.js');
@@ -29,10 +29,6 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Что-то пошло не так!');
 });
-
-app.get('/HomePage',(req,res) =>{
-    res.sendFile(filelink);
-})
 
 const start = async () => {
   try {
