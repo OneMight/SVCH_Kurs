@@ -5,9 +5,9 @@ import './BurgerMenu.css';
 export default function BurgerMenu(){
 
     return (
-        <div class="menu">
+        <div className="menu">
             <input type="checkbox" id="burger-checkbox" className="burger-checkbox"/>
-            <label for="burger-checkbox" className="burger"></label>
+            <label htmlFor="burger-checkbox" className="burger"></label>
             <ul className="menu-list">
                 <li><Link to="/" className='menu-item'>home</Link></li>
                 <li><Link to="/group" className="menu-item">Group</Link></li>

@@ -19,9 +19,12 @@ const Team = sequelize.define('Teams',{
 
 const Pilot = sequelize.define('Pilots',{
     idPilot:{type:DataTypes.BIGINT, primaryKey: true, autoIncrement:true},
-    PilotsName:{type:DataTypes.CHAR},
-    PilotsSurname:{type:DataTypes.CHAR},
-    PilotsBiography:{type:DataTypes.TEXT}
+    PilotName:{type:DataTypes.CHAR, allowNull:false},
+    Nationality:{type:DataTypes.CHAR, allowNull:false},
+    photoPilot:{type:DataTypes.STRING, allowNull:false},
+    photoNationality:{type:DataTypes.STRING, allowNull:true},
+    Age:{type:DataTypes.INTEGER, allowNull:false},
+    Biography:{type:DataTypes.TEXT}
 
 })
 const Trophie = sequelize.define('Trophies',{
@@ -30,6 +33,45 @@ const Trophie = sequelize.define('Trophies',{
     imageTrophie:{type:DataTypes.STRING}
 })
 
+const News = sequelize.define('News',{
+    idNews:{type:DataTypes.BIGINT, primaryKey:true, autoIncrement: true},
+    desciption:{type:DataTypes.TEXT, allowNull:false},
+    photo:{type:DataTypes.STRING, allowNull:false}
+})
+const PilotStat = sequelize.define('PilotStat',{
+    idPilotStat:{type:DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
+    Starts:{type:DataTypes.SMALLINT, allowNull: false},
+    year:{type:DataTypes.CHAR(4), allowNull:false},
+    Scores:{type:DataTypes.CHAR(5), allowNull:false},
+    Wins:{type:DataTypes.SMALLINT, allowNull:false},
+    Podiums:{type:DataTypes.SMALLINT, allowNull:false},
+    PolePos:{type:DataTypes.SMALLINT, allowNull:false},
+    PlaceInSeason:{type:DataTypes.SMALLINT, allowNull:false}
+})
+const BestCircuit = sequelize.define('BestCircuit',{
+    idBestCircuit:{type:DataTypes.BIGINT, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.CHAR(50), allowNull:false},
+    photo:{type:DataTypes.CHAR(50), allowNull:false},
+    bestLap:{type:DataTypes.CHAR(15), allowNull:false},
+    bestLapSpeed:{type:DataTypes.CHAR(10),allowNull:false},
+    timeInPitstops:{type:DataTypes.CHAR(15),allowNull:false},
+    Pitstops:{type:DataTypes.SMALLINT,allowNull:false}
+})
+const User = sequelize.define('User',{
+    idUser:{type:DataTypes.BIGINT, primaryKey:true, autoIncrement: true},
+    email:{type:DataTypes.CHAR(50), allowNull:false},
+    login:{type:DataTypes.CHAR(50), allowNull:false},
+    name:{type:DataTypes.CHAR(50), allowNull:false},
+    age:{type:DataTypes.INTEGER, allowNull:true},
+    isBlocked:{type:DataTypes.BOOLEAN, allowNull:false},
+    nationality:{type:DataTypes.CHAR(50), allowNull:true},
+    role:{type:DataTypes.CHAR(50), allowNull:false}
+})
+
+const SavedPilot = sequelize.define('SavedPilot',{
+    idSavedPilot:{type:DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
+    idPilot:{type:DataTypes.BIGINT, allowNull:false}
+})
 //Связь 1:M
 Team.hasMany(Pilot);
 Pilot.belongsTo(Team);
@@ -39,10 +81,21 @@ Trophie.belongsTo(Pilot);
 // Связь 1:M
 Group.hasMany(Team);
 Team.belongsTo(Group);
+// M:M
+User.belongsToMany(Pilot, {through: SavedPilot});
+Pilot.belongsToMany(User, {through: SavedPilot});
+
+//1:M
+Pilot.hasMany(BestCircuit);
+BestCircuit.belongsTo(Pilot);
+
+//1:M
+Pilot.hasMany(PilotStat);
+PilotStat.belongsTo(Pilot);
 
 sequelize.sync().then(result=>{
     console.log(result);
   })
   .catch(err=> console.log(err));
 
-  module.exports={ Group,Team,Pilot,Trophie }
+  module.exports={ Group,Team,Pilot,Trophie, News, PilotStat, BestCircuit, User, SavedPilot }

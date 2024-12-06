@@ -4,20 +4,7 @@ const { Op } = require('sequelize');
 class TrophieController{
 
    async getTrophies (req,res) {
-    const { page = 1, limit = 10, sortBy = 'idTrophie', order = 'ASC', search = '', filter = {} } = req.query;
-    const offset = (page - 1) * limit;
-    const where ={}
-    if(search){
-        where[Op.or]= [
-            {nameTrophie:{[Op.like]: `%${search}%`}}
-        ]
-    }
-    for(const key in filter){
-        if(filter.hasOwnProperty(key)){
-            where[key] = filter[key];
-        }
-    }
-
+    const { sortBy = 'idTrophie', order = 'ASC'} = req.query;
     const data = await Trophie.findAndCountAll({
         where,
         limit,
@@ -31,11 +18,12 @@ class TrophieController{
     })
     }
    async createTrophie (req,res){
-        const {nameTrophie, imageTrophie} = req.body;
+        const {nameTrophie, imageTrophie,PilotIdPilot} = req.body;
         try{
         const trophie = await Trophie.create({
             nameTrophie: nameTrophie,
             imageTrophie: imageTrophie,
+            PilotIdPilot: PilotIdPilot
        
            })
            return res.status(201).json(trophie)
@@ -89,4 +77,4 @@ class TrophieController{
 
     }
 }
-module.exports = TrophieController
+module.exports = new TrophieController()

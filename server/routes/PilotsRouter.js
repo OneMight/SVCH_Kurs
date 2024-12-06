@@ -1,7 +1,7 @@
 const Router = require('express');
 const router = new Router();
-const PilotController = require('../controllers/PilotsController')
-const pilotController = new PilotController();
+const pilotController = require('../controllers/PilotsController')
+
 router.get('/',pilotController.getPilots);
 router.post('/createPilot',pilotController.createPilot);
 router.put('/updatePilot/:id',pilotController.updatePilot);

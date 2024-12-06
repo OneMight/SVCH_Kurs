@@ -34,7 +34,7 @@ const start = async () => {
   try {
       await sequelize.authenticate();
       console.log('Соединение с базой данных успешно!');
-      await sequelize.sync(); 
+      
       app.listen(PORT, () => {
           console.log(`Server running at http://localhost:${PORT}`);
       });

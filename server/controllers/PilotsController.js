@@ -1,5 +1,5 @@
 
-const { Pilot } = require('../models/models')
+const { Pilot, Team,Trophie,PilotStat,BestCircuit } = require('../models/models')
 const { Op } = require('sequelize');
 class PilotController{
 
@@ -9,8 +9,7 @@ class PilotController{
         const where ={}    
         if(search){
             where[Op.or]= [
-                {PilotsName:{[Op.like]: `%${search}%`}},
-                {PilotsSurname:{[Op.like]: `%${search}%`}},
+                {PilotName:{[Op.like]: `%${search}%`}},
             ]
         }
         for(const key in filter){
@@ -22,7 +21,12 @@ class PilotController{
             where,
             limit,
             offset,
-            order: [[sortBy,order]]
+            order: [[sortBy,order]],
+            include:[{
+                model:Team,
+                attributes:['teamName','photoTeam']
+ 
+            }]
          });
          return res.json({
             total: data.count,
@@ -34,7 +38,39 @@ class PilotController{
     async getById(req,res){
         try{
             const id = req.params.id;
-            const data = await Pilot.findByPk(id);
+            const data = await Pilot.findByPk(id,{
+                include:[{
+                    model:Team,
+                    attributes:['teamName','photoTeam', 'desciption'],
+                  
+                },
+                {
+                    model:Trophie,
+                    attributes:['idTrophie','nameTrophie', 'imageTrophie']
+                },
+                {
+                    model:PilotStat,
+                    attributes:["Starts","year",
+                        "Scores",
+                        "Wins",
+                        "Podiums",
+                        "PolePos",
+                        "PlaceInSeason",
+                        "PilotIdPilot"
+                    ]
+                },
+                {
+                    model:BestCircuit,
+                    attributes:["idBestCircuit",
+                        "name",
+                        "photo",
+                        "bestLap",
+                        "bestLapSpeed",
+                        "timeInPitstops",
+                        "Pitstops"
+                    ]
+                }]
+            });
             if(!data){
                 return res.status(404).json({message: "Pilot not found"})
             }
@@ -44,12 +80,16 @@ class PilotController{
         }
     }
    async createPilot (req,res){
-        const {PilotsName, PilotsSurname,PilotsBiography} = req.body;
+        const {PilotName, Nationality,photoPilot,photoNationality,Age,Biography, TeamIdTeam } = req.body;
         try{
         const pilot = await Pilot.create({
-            PilotsName: PilotsName,
-            PilotsSurname: PilotsSurname,
-            PilotsBiography: PilotsBiography
+            PilotName: PilotName,
+            Nationality: Nationality,
+            photoPilot: photoPilot,
+            photoNationality:photoNationality,
+            Age:Age,
+            Biography:Biography,
+            TeamIdTeam:TeamIdTeam
            })
            return res.status(201).json(pilot)
         }
@@ -90,4 +130,4 @@ class PilotController{
 
     }
 }
-module.exports = PilotController
+module.exports = new PilotController()

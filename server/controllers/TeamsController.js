@@ -93,4 +93,4 @@ class TeamController {
     }
 }
 
-module.exports = TeamController;
+module.exports = new TeamController();

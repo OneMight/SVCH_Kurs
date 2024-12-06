@@ -1,6 +1,7 @@
 .con-inf{
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     background-color: #2C2B2B;
     border-radius: 20px;
     width: 85%;
@@ -55,5 +56,5 @@
     transition: max-height 0.3s ease;
 }
 .accordion-collapse.open{
-    max-height: 400px;
+    max-height: 600px;
 } 

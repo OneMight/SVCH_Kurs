@@ -1,16 +1,20 @@
 import './Header.css'
-import {Link} from 'react-router-dom'
-import { useState } from 'react'
+import {Link, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import BurgerMenu from '../BurgerMenu/BurgerMenu'
 export default function Header(){
-    const [activeLink,setActiveLink] = useState('/')
+    const location = useLocation()
+    const [activeLink,setActiveLink] = useState(location.pathname)
+    useEffect(() => {
+        setActiveLink(location.pathname); // Обновляем активную ссылку при изменении URL
+    }, [location]);
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
     return(
         <header>
             <div className="Logo">
-                <img src="./images/Logo.png" alt="" />
+                <img src="/images/Logo.png" alt="" />
             </div>
             <nav>
                 <Link to='/'
@@ -20,8 +24,8 @@ export default function Header(){
                     Home
                 </Link>
                 <Link to='/group'
-                className={`Link ${activeLink === '/groups' ? 'selected' : ''}`}
-                onClick={() => handleLinkClick('/groups')}
+                className={`Link ${activeLink === '/group' ? 'selected' : ''}`}
+                onClick={() => handleLinkClick('/group')}
                 >
                     Groups
                 </Link>
@@ -31,7 +35,7 @@ export default function Header(){
                  >
                     Teams
                 </Link>
-                <Link to='/'
+                <Link to='/pilots'
                 className={`Link ${activeLink === '/pilots' ? 'selected' : ''}`}
                 onClick={() => handleLinkClick('/pilots')}
                 >

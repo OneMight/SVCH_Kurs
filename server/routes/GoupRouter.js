@@ -1,7 +1,6 @@
 const Router = require('express');
 const router = new Router();
-const GroupController = require('../controllers/GroupController')
-const groupsController = new GroupController();
+const groupsController = require('../controllers/GroupController')
 
 router.get('/',groupsController.getGroups);
 router.post('/createGroup',groupsController.createGroup);

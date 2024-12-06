@@ -49,6 +49,8 @@ main{
 .search{
     background-color: #1F1F1F;
     border: none;
+    cursor: pointer;
+    
 }
 .navigate-button{
     background-color: #2C2B2B;

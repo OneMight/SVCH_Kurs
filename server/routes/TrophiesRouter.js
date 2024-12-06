@@ -1,7 +1,7 @@
 const Router = require('express');
 const router = new Router();
-const TrophieController = require('../controllers/TrophiesController')
-const trophieController = new TrophieController();
+const trophieController = require('../controllers/TrophiesController')
+
 router.get('/',trophieController.getTrophies);
 router.post('/createTrophie',trophieController.createTrophie);
 router.put('/updateTrophie/:id',trophieController.UpdateTrophie);

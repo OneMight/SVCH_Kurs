@@ -1,0 +1,90 @@
+.pilotInf{
+    gap: 30px;
+}
+.sub-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+.card-pilot{
+    background-color: #1F1F1F;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+}
+.information{
+    display: flex;
+    flex-direction: row;
+   justify-content: space-around;
+   align-items: center;
+   
+}
+.img-trophies{
+    margin-top: 10px;
+    width: 100%;
+    min-height:50px;
+}
+.img-trophies>img{
+    height: 50px;
+}
+.team-photo{
+    width: 50px;
+    height: 40px;
+}
+.photo-pilot{
+    border-radius: 100px
+}
+p{
+    font-size: 18px;
+    color: #a1a1a1;
+}
+.inf-field{
+    width: 40%;
+}
+.inf-field>div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:1px solid #a1a1a1;
+    padding: 5px;
+}
+.nationality-photo{
+    width: 24px;
+    height: 18px;
+}
+.buttons-control{
+    width: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.controll{
+    width: 150px;
+    background-color: #511111;
+    border-radius: 20px;
+    color: #ffffff;
+    border: none;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 5px 0;
+    font-size: 20px;
+    transition: all, 0.2s;
+    cursor: pointer;
+}
+.controll:hover{
+    background-color: #711818;
+}
+.selection-pilots{
+    width: 95%;
+}
+.controll:active{
+    background-color: #b42727;
+}

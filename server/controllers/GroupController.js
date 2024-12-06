@@ -93,4 +93,4 @@ class GroupController{
 
     }
 }
-module.exports = GroupController
+module.exports = new GroupController()
