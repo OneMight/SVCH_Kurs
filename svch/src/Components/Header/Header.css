@@ -29,6 +29,10 @@ nav{
     nav{
         display: none;
     }
+    .account-button{
+        display: none;
+    }
+
 }
 
 .Link:hover{

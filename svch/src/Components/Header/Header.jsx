@@ -4,13 +4,23 @@ import { useState, useEffect } from 'react'
 import BurgerMenu from '../BurgerMenu/BurgerMenu'
 export default function Header(){
     const location = useLocation()
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [activeLink,setActiveLink] = useState(location.pathname)
+    const checkLogin = () =>{
+        if(localStorage.getItem('token')){
+            setIsLoggedIn(true)
+        }
+    }
     useEffect(() => {
-        setActiveLink(location.pathname); // Обновляем активную ссылку при изменении URL
+        setActiveLink(location.pathname);
+        checkLogin()
+
     }, [location]);
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
+
+    
     return(
         <header>
             <div className="Logo">
@@ -41,13 +51,20 @@ export default function Header(){
                 >
                     Pilots
                 </Link>
-                <Link to='/'
+                <Link to='/news'
                 className={`Link ${activeLink === '/news' ? 'selected' : ''}`}
                 onClick={() => handleLinkClick('/news')}
                 >
                     News
                 </Link>
             </nav>
+            {!isLoggedIn ? null:(
+                <Link to='/account'
+                className='account-button'>
+                    <img src="/images/AccountButton.png" alt="" />
+                </Link>
+            )}
+           
             <BurgerMenu activeLink ={activeLink} handleChangeColor ={handleLinkClick}/>
         </header>
     )

@@ -32,6 +32,6 @@ export default function Input(props){
   }));
   
   return(
-    <BootstrapInput type={props.type} placeholder={props.placeholder} id="bootstrap-input" />
+    <BootstrapInput type={props.type} placeholder={props.placeholder} onChange={props.onChange} value={props.value} id="bootstrap-input" />
   )
 }

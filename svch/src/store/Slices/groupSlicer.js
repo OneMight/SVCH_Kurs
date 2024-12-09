@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import axios from "axios";
+
 export const fetchGroups = createAsyncThunk(
     'groups/fetchGroups',async(_,{rejectWithValue}) =>{
         try{
@@ -8,13 +8,13 @@ export const fetchGroups = createAsyncThunk(
             return response.data;
             }
         catch(error){
-            console.error("Fetch groups error:", error);
+            console.error("Fetch groups error: ", error);
             return rejectWithValue(error.message)
         }
     }
 )
 export const searchGroups = createAsyncThunk(
-    'groups/searchGroups', async (search,{rejectWithValue,dispatch,getState})=>{
+    'groups/searchGroups', async (search,{rejectWithValue})=>{
         try{
             const response = await axios.get(`http://localhost:5000/api/group?limit=4&search=${search}`)
             const data = response.data;

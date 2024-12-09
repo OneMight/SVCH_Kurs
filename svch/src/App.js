@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route,useLocation, Navigate} from 'react-router-dom';
 import Registration from './Pages/Registration';
 import Logining from './Pages/Logining';
 import HomePage from './Pages/HomePage';
@@ -6,9 +6,21 @@ import GroupPage from './Pages/Group'
 import TeamsPage from './Pages/Teams';
 import PilotsPage from './Pages/Pilots'
 import PilotDetail from './Pages/PilotDetail'
-import Header from './Components/Header/Header'
-import Footer from './Components/Footer/Footer'
+import NewsPage from './Pages/NewsPage'
+import AccountPge from './Pages/AccountPage'
+
+
 export default function App() {
+  function RequireAuth({ children }) {
+    let location = useLocation();
+    const token = localStorage.getItem('token')
+    if (!token) {
+      
+      return <Navigate to="/registration" state={{ from: location }} replace />;
+    }
+  
+    return children;
+  }
   return (
     <>
       
@@ -17,13 +29,30 @@ export default function App() {
         <Routes>
         
             <Route path='/' element={<HomePage/>}/>
-            <Route path='/group' element={<GroupPage/>}/>
-            <Route path='/teams' element={<TeamsPage/>}/>
-            <Route path='/pilots' element={<PilotsPage/>}/>
-            <Route path='/news' element={<HomePage/>}/>
+            <Route path='/group' element={
+              <RequireAuth>
+                  <GroupPage/>
+              </RequireAuth>
+            }/>
+            <Route path='/teams' element={
+               <RequireAuth>
+                 <TeamsPage/>
+               </RequireAuth>
+            }/>
+            <Route path='/pilots' element={
+               <RequireAuth> 
+                 <PilotsPage/>
+               </RequireAuth>
+            }/>
+            <Route path='/news' element={
+               <RequireAuth>
+                 <NewsPage/>
+               </RequireAuth>
+            }/>
             <Route path='/registration' element={<Registration/>}/>
             <Route path='/logining' element={<Logining/>}/>
             <Route path='/pilotDetails/:id' element={<PilotDetail/>}/>
+            <Route path='/account' element={<AccountPge/>}/>
           
         </Routes>
    

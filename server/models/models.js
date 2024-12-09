@@ -61,7 +61,8 @@ const User = sequelize.define('User',{
     idUser:{type:DataTypes.BIGINT, primaryKey:true, autoIncrement: true},
     email:{type:DataTypes.CHAR(50), allowNull:false},
     login:{type:DataTypes.CHAR(50), allowNull:false},
-    name:{type:DataTypes.CHAR(50), allowNull:false},
+    password:{type:DataTypes.STRING, allowNull:false},
+    name:{type:DataTypes.CHAR(50), allowNull:true},
     age:{type:DataTypes.INTEGER, allowNull:true},
     isBlocked:{type:DataTypes.BOOLEAN, allowNull:false},
     nationality:{type:DataTypes.CHAR(50), allowNull:true},
@@ -72,6 +73,13 @@ const SavedPilot = sequelize.define('SavedPilot',{
     idSavedPilot:{type:DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
     idPilot:{type:DataTypes.BIGINT, allowNull:false}
 })
+const Token = sequelize.define('Token',{
+    idToken:{type:DataTypes.BIGINT, primaryKey:true, autoIncrement:true},
+    refreshToken:{type:DataTypes.STRING(1024)},
+    idUser:{type:DataTypes.BIGINT,}
+})
+
+
 //Связь 1:M
 Team.hasMany(Pilot);
 Pilot.belongsTo(Team);
@@ -98,4 +106,4 @@ sequelize.sync().then(result=>{
   })
   .catch(err=> console.log(err));
 
-  module.exports={ Group,Team,Pilot,Trophie, News, PilotStat, BestCircuit, User, SavedPilot }
+  module.exports={ Group,Team,Pilot,Trophie, News, PilotStat, BestCircuit, User, SavedPilot,Token }

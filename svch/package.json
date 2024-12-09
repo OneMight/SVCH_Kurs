@@ -16,6 +16,7 @@
     "@tiptap/pm": "^2.9.1",
     "@tiptap/react": "^2.9.1",
     "@tiptap/starter-kit": "^2.9.1",
+    "@userfront/toolkit": "^1.0.10",
     "axios": "^1.7.8",
     "dayjs": "^1.11.13",
     "react": "^18.3.1",
