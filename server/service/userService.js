@@ -11,7 +11,7 @@ class UserService{
             }
         })
         if(user){
-            throw new Error("User is actualy register by this email: "+email);
+            throw new Error({message:"User is actualy register by this email"});
         }
         const hashpassword = await bcrypt.hash(password, 3);
         const userReg = await User.create({email,password:hashpassword,login, isBlocked:0, role:'user'})
@@ -31,11 +31,11 @@ class UserService{
             }
         })
         if(!user){
-            throw new Error('incorrent email');
+            throw new Error({message:'incorrent email' });
         }
         const isPassrowd = await bcrypt.compare(password, user.password)
         if(!isPassrowd){
-            throw new Error('Password is incorrenct')
+            throw new Error({message: 'Password is incorrenct'})
         }
         const userDto = new UserDto(user)
         const tokens = TokenService.generateTokens({userDto})
@@ -51,12 +51,12 @@ class UserService{
     }
     async refresh(refreshToken){
         if(!refreshToken){
-            throw new Error('User is not login')
+            throw new Error({message: 'User is not login' })
         }
         const userData = TokenService.validateRefreshToken(refreshToken);
         const tokenfromDb = await TokenService.findToken(refreshToken)
         if(!userData || !tokenfromDb){
-            throw new Error('User is not login')
+            throw new Error({message: 'User is not login' })
         }
         const user = await User.findByPk(userData.id)
         const userDto = new UserDto(user)

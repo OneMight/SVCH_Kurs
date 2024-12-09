@@ -7,7 +7,7 @@ import TeamsPage from './Pages/Teams';
 import PilotsPage from './Pages/Pilots'
 import PilotDetail from './Pages/PilotDetail'
 import NewsPage from './Pages/NewsPage'
-import AccountPge from './Pages/AccountPage'
+import AccountPage from './Pages/AccountPage'
 
 
 export default function App() {
@@ -52,7 +52,7 @@ export default function App() {
             <Route path='/registration' element={<Registration/>}/>
             <Route path='/logining' element={<Logining/>}/>
             <Route path='/pilotDetails/:id' element={<PilotDetail/>}/>
-            <Route path='/account' element={<AccountPge/>}/>
+            <Route path='/account' element={<AccountPage/>}/>
           
         </Routes>
    

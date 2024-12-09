@@ -1,10 +1,10 @@
  import Header from '../Header/Header'
  import './ContainerForReg.css'
  import { Link, useNavigate } from 'react-router-dom'
- import Input from '../ReadyToUseComponents/Input.jsx'
- import {registration, setCurrentUser} from '../../store/Slices/userSlicer.js'
+ import {registration} from '../../store/Slices/userSlicer.js'
  import { useState,useCallback } from 'react'
  import {useDispatch,useSelector} from 'react-redux'
+import Alert from '../ReadyToUseComponents/alert.jsx'
 
  export default function ContainerForRegLog(){
     const navigate = useNavigate()
@@ -13,8 +13,8 @@
     const [password, setpassword] = useState('')
     const [Cpassword, setCpassword] = useState('')
     const [login, setlogin] = useState('')
-    const {error,status} = useSelector(state => state.users)
-    const currentUser = useSelector(state => state.users.currentUsers)
+    const {error} = useSelector(state => state.users)
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
     const handleChangeEmail = useCallback((e) => {
         setemail(e.target.value);
     });
@@ -30,23 +30,23 @@
 
     const checkPasswords = (p,cp) =>{
         if(p !== cp){
-            alert('Passwod must be the same')
+            setPasswordsMatch(false);
+            return false
         }
+        return true
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        checkPasswords(password,Cpassword)
+        if(!checkPasswords(password,Cpassword)){
+            return
+        }
         const resultAction = await dispatch(registration({email,password,login}));
-        if(error){
-            alert(error)
+        if(resultAction.status === 500){
+            alert(error.message)
         }
         else{
             console.log("Результат регистрации:", resultAction.payload);
-            dispatch(setCurrentUser(resultAction.payload))
-            localStorage.setItem('token',resultAction.payload.accessToken);
-            localStorage.setItem('currentUser',resultAction.payload)
-            const user = localStorage.getItem('currentUser')
-            console.log(user.user)
+            localStorage.setItem('token',resultAction.payload.refreshToken);
             navigate('/')
         }
         
@@ -54,7 +54,9 @@
 
    return(
     <main className='container-for-reg-log'>
+        
         <Header/>
+        {!passwordsMatch && (<Alert message={'Passwods must be the same'}/>)}
         <section className='flex-con'>
             <article className='article-for-form'>      
                 <img src="./images/registrationPhoto.png" alt=""  className='img width'/>

@@ -24,8 +24,8 @@ export const registration = createAsyncThunk(
                     login:login,
                     password:password
                 });
-                // localStorage.setItem('token',response.data.accesToken);
-                // localStorage.setItem('currentUser',response.data.user);
+             
+             localStorage.setItem('currentUser',JSON.stringify(response.data));
             return response.data
         }
         catch (error) {
@@ -37,9 +37,11 @@ export const registration = createAsyncThunk(
 export const logout = createAsyncThunk(
     'users/logout', async(_,{rejectWithValue}) =>{
         try{
-            const response = await axios.post('http://localhost:5000/api/user/logout')
+            const refreshToken = localStorage.getItem('token')
+            const response = await axios.post('http://localhost:5000/api/user/logout',{refreshToken},{ withCredentials: true })
             localStorage.removeItem('token')
             localStorage.removeItem('currentUser')
+      
         }catch (error) {
             console.log(error)
             return rejectWithValue(error.response?.data?.message); // Возвращаем сообщение об ошибке
@@ -47,11 +49,12 @@ export const logout = createAsyncThunk(
     }
 )
 
+
 const usersSlicer = createSlice({
     name:'users',
     initialState:{
         users:[],
-        currentUsers:{},
+        currentUsers:null,
         status: null,
         error: null
     },
@@ -74,6 +77,11 @@ const usersSlicer = createSlice({
              state.status ='rejected';
              state.error = action.error.message;
          })
+         .addCase(logout.fulfilled, (state, action) =>{
+            state.status = 'resolved';
+            state.currentUsers = null;
+        })
+
      }
 })
 export const {setCurrentUser} = usersSlicer.actions

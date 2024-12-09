@@ -4,7 +4,7 @@ const userController = require('../controllers/UserController')
 const {body} = require('express-validator')
 
 router.get('/',userController.getUsers);
-router.get('/:id',userController.getById);
+router.get('/registerUser',userController.getById);
 router.put('/updateUser/:id', userController.updateUser);
 router.post('/registration',
     body('email').isEmail(),

@@ -1,4 +1,4 @@
-const {User} = require('../models/models');
+const {User, Token} = require('../models/models');
 const { Op } = require('sequelize');
 const {validationResult, body} = require('express-validator')
 const UserService = require('../service/userService');
@@ -31,11 +31,24 @@ class UserController{
     }
     async getById(req,res){
         try{
-            const id = req.paras.id;
-            const data = await User.findByPk(id);
-            if(!data){
-                return res.status(404).json({message: "User is not found"})
+            const token = req.headers.authorization?.split(' ')[1];
+            if (!token) {
+                return res.status(401).json({ message: "Unauthorized: Token not provided" });
             }
+            const tokenData = await Token.findOne({
+                where:{
+                    refreshToken: token
+                }
+            })
+            if (!tokenData) {
+                return res.status(401).json({ message: "Unauthorized: Invalid token" });
+            }
+            const user = User.findByPk(tokenData.idUser);
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+           
+            return res.json(user);
         }catch(error){
             return res.status(500).json({message: "Request is not correctly: ", error})
         }
@@ -62,7 +75,7 @@ class UserController{
                 return res.status(404).json('User not found')
             }
             await user.update(...user,!isBlocked);
-            return res.status(201).json('User is blocked')
+            return res.status(201).json({message: 'User is blocked'})
         }catch(error){
             return res.status(500).json('Something went wrong')
         }
@@ -71,7 +84,7 @@ class UserController{
         try{
             const errors = validationResult(req)
             if(!errors.isEmpty()){
-                return res.status(400).json('Validation is incorrect')
+                return res.status(400).json({message: 'Validation is incorrect'})
             }
             const {email, password, login} = req.body;
             const userData = await UserService.registration(email,password,login)
@@ -91,20 +104,21 @@ class UserController{
             
         }
     }
-    async logout(req,res,next){
+    async logout(req,res){
         try{
-            const {refreshToken} = req.cookies;
+            const { refreshToken } = req.body;
+            console.log(refreshToken)
             const token = await userService.logout(refreshToken)
             res.clearCookie('refreshToken');
-            return res.status(200)
+            return res.status(200).json({ message: 'Successfully logged out' });
         }catch(e){
-            
+            console.log(e.message)
         }
     }
-    async refresh(req,res,next){
+    async refresh(req,res){
         try{
-            const refreshToken = req.cookies;
-            const userData = await UserService.refresh(refreshToken)
+            const refreshToken = req.cookies.refreshToken;
+            const userData = await UserService.refresh(refreshToken);
             res.cookie('refreshToken', userData.refreshToken,{maxAge:10*24*60*60*1000, httpOnly:true})
             return res.json(userData)
         }catch(e){
