@@ -1,5 +1,7 @@
 const {User, Token} = require('../models/models');
+const UserDto = require('../dto/UserDto')
 const { Op } = require('sequelize');
+const TokenService = require('../service/tokenService')
 const {validationResult, body} = require('express-validator')
 const UserService = require('../service/userService');
 const userService = require('../service/userService');
@@ -54,17 +56,20 @@ class UserController{
         }
     }
     async updateUser(req, res){
-        const id = req.params.id;
+        const {id} = req.params;
         const {name, age, nationality} = req.body;
         try{
             const user = await User.findByPk(id);
             if(!user){
                 return res.status(404).json('User not found')
             }
-            await user.update({name, age, nationality});
-            return res.status(201).json('User is updated')
+            const userdata = await user.update({name, age, nationality});
+            const userDto = new UserDto(userdata)
+            const tokens = TokenService.generateTokens({userDto})
+            await TokenService.saveToken(userDto.id, tokens.refreshToken);
+            return res.status(201).json({...tokens,user: userDto})
         }catch(error){
-            return res.status(500).json('Something went wrong')
+            return res.status(500).json('Something went wrong: '+ error)
         }
     }
     async blockUser(req,res){

@@ -50,7 +50,7 @@ export default function Teams(){
         }
     }
     return(
-        <main className=''>
+        <main className='teams-con'>
             {status === 'loading' && <h2>Loading</h2>}
             {error && <h2>An Error occured: {error}</h2>}
             <div className='search-input'>

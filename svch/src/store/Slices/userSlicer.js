@@ -4,9 +4,9 @@ import axios from "axios";
 export const fetchUsers = createAsyncThunk(
     'users/fetchUsers', async(_,{rejectWithValue,dispatch}) =>{
         try{
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}user`)
-            dispatch(setCurrentUser(response.data))
-            console.error(response.data)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}user/`)
+            console.log(response.data)
+            dispatch(setUsers(response.data))
             return response.data;
             }
         catch(error){
@@ -57,12 +57,33 @@ export const login = createAsyncThunk(
                     email:email,
                     password:password
                 });
-                console.log(1232134)
              localStorage.setItem('currentUser',JSON.stringify(response.data));
             return response.data
         }catch(error){
             console.log(error)
             return rejectWithValue(error.status);
+        }
+    }
+)
+export const EditInformation = createAsyncThunk(
+    'users/EditInformation', async({name,age,nationality},{rejectWithValue}) =>{
+        try{
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            console.log(user)
+            const id = user.user.id
+            console.log(id)
+            const response = await axios.put(`${process.env.REACT_APP_API_URL}user/updateUser/${id}`,{
+                name: name,
+                age: age,
+                nationality: nationality
+            })
+            console.log('asdasd')
+            localStorage.setItem('currentUser',JSON.stringify(response.data));
+            return response.data
+        }
+        catch(error){
+            console.log(error)
+            return rejectWithValue(error);
         }
     }
 )
@@ -79,6 +100,9 @@ const usersSlicer = createSlice({
     reducers:{
         setCurrentUser(state, action){
             state.currentUsers = action.payload
+        },
+        setUsers(state, action){
+            state.users = action.payload
         }
     },
     extraReducers: (builder) =>{
@@ -111,8 +135,31 @@ const usersSlicer = createSlice({
             state.status ='rejected';
             state.error = action.error.message;
         })
-
+        .addCase(fetchUsers.pending, (state) =>{
+            state.status = 'loading';
+            state.error = null
+        })
+        .addCase(fetchUsers.fulfilled, (state, action) =>{
+            state.status = 'resolved';
+            state.currentUsers = action.payload;
+        })
+        .addCase(fetchUsers.rejected, (state, action) =>{
+            state.status ='rejected';
+            state.error = action.error.message;
+        })
+        .addCase(EditInformation.pending, (state) =>{
+            state.status = 'loading';
+            state.error = null
+        })
+        .addCase(EditInformation.fulfilled, (state, action) =>{
+            state.status = 'resolved';
+            state.currentUsers = action.payload;
+        })
+        .addCase(EditInformation.rejected, (state, action) =>{
+            state.status ='rejected';
+            state.error = action.error.message;
+        })
      }
 })
-export const {setCurrentUser} = usersSlicer.actions
+export const {setCurrentUser,setUsers} = usersSlicer.actions
 export default usersSlicer.reducer;

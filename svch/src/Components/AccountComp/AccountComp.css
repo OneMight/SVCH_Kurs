@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 .account-card{
     display: flex;
@@ -68,4 +69,32 @@
 }
 .button-user:hover{
     background-color: #7b1919;
+}
+.edit{
+    width: 100px;
+}
+.buttons-edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: none;
+    margin-bottom: 2px;
+}
+
+@media  (max-width:768px) {
+   .user-inf{
+    flex-direction: column;
+    gap: 20px;
+   }
+   .user-image > img{
+    width: 250px;
+    height: 250px;
+   }
+   .user-credentials{
+    width: 70%;
+   }
+   .buttons-div{
+    gap: 10px;
+   }
 }

@@ -8,7 +8,7 @@ import PilotsPage from './Pages/Pilots'
 import PilotDetail from './Pages/PilotDetail'
 import NewsPage from './Pages/NewsPage'
 import AccountPage from './Pages/AccountPage'
-
+import UsersPage from './Pages/UsersPage'
 
 export default function App() {
   function RequireAuth({ children }) {
@@ -53,6 +53,7 @@ export default function App() {
             <Route path='/logining' element={<Logining/>}/>
             <Route path='/pilotDetails/:id' element={<PilotDetail/>}/>
             <Route path='/account' element={<AccountPage/>}/>
+            <Route path='/adminTable' element={<UsersPage/>}/>
           
         </Routes>
    
