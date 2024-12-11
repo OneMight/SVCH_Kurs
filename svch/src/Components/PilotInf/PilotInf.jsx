@@ -1,12 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import './PilotInf.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import Tabes from '../Tabes/Tabes'
-import {  getByIdPilot } from '../../store/Slices/pilotsSlicer'
+import {  getByIdPilot,SavePilot } from '../../store/Slices/pilotsSlicer'
+import Alert from '../ReadyToUseComponents/alert'
 export default function PilotInf(){
     const {id} = useParams();
-    
+    const [isCorrect, setIsCorrect] = useState(true)
 
     const { status, error } = useSelector(state => state.pilots);
     const dispatch = useDispatch();
@@ -15,25 +16,28 @@ export default function PilotInf(){
         dispatch(getByIdPilot(id))
     },[])
     const currentPilot = useSelector(state => state.pilots.currentPilot);
-    console.log(currentPilot)
-        
-    
-    
-    if (status === 'rejected') { 
-        return <div>Error: {error}</div>;
+
+    const HandleSavePilot = (id)=>{
+        try{
+             dispatch(SavePilot(id))
+        }
+        catch(error){
+            setIsCorrect(false);
+            return
+        }
+
     }
     if(status === 'loading' || status === null || currentPilot ===null){
-
         return <div>loading</div>
-     
     }
     const Trophies = currentPilot.Trophies
    
     return(
-     
+   
         <main className='pilotInf'>
+              {status === 'rejected' && <Alert setIsCorrect={setIsCorrect} message='Pilot is already save'/>}
             <div className='buttons-control'>
-                <button className='controll'>Save Pilot</button>
+                <button className='controll' onClick={() => HandleSavePilot(currentPilot.idPilot)}>Save Pilot</button>
                 <button className='controll'>Add to comparation</button>
             </div>
             <div className='sub-div'>

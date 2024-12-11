@@ -48,3 +48,17 @@ label{
     padding: 20px;
     width: 75%;
 }
+.error-Saved-Pilots{
+    margin: 50px 0;
+    font-size: 25px;
+}
+
+@media (max-width:768px) {
+    .filters-div{
+        width: 280px;
+    }
+    .filters-div > p,label{
+        font-size: 20px;
+        color: #ffffff;
+    }
+}

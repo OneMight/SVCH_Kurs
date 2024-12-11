@@ -9,7 +9,7 @@ import PilotDetail from './Pages/PilotDetail'
 import NewsPage from './Pages/NewsPage'
 import AccountPage from './Pages/AccountPage'
 import UsersPage from './Pages/UsersPage'
-
+import SavedPilotsPage from './Pages/SavedPilotsPage'
 export default function App() {
   function RequireAuth({ children }) {
     let location = useLocation();
@@ -54,6 +54,7 @@ export default function App() {
             <Route path='/pilotDetails/:id' element={<PilotDetail/>}/>
             <Route path='/account' element={<AccountPage/>}/>
             <Route path='/adminTable' element={<UsersPage/>}/>
+            <Route path='/savedPilots' element={<SavedPilotsPage/>}/>
           
         </Routes>
    

@@ -89,6 +89,7 @@ export const EditInformation = createAsyncThunk(
 )
 
 
+
 const usersSlicer = createSlice({
     name:'users',
     initialState:{

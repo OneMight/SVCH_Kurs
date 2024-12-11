@@ -90,7 +90,10 @@ export default function AccountComp(){
                     {
                     user.role === "user                                              " ? (
                         <>
+                        <Link to='/savedPilots'>
                             <button className='button-user'>Saved pilot</button>
+                        </Link>
+                            
                             <button className='button-user'>Comporation</button>
                             <button className='button-user'> Support</button>
                         </>

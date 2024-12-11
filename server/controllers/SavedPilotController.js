@@ -1,8 +1,8 @@
-const {SavedPilot, Pilot, User} = require('../models/models')
+const {SavedPilot, Pilot, User,Team} = require('../models/models')
 const { Op } = require('sequelize');
 class SavedPilotController{
     async getAllSaved(req,res){
-        const { page = 1, limit = 10, sortBy = 'idSavedPilot', order = 'ASC', search = '', filter = {} } = req.query;
+        const { page = 1, limit = 10, sortBy = 'idUser', order = 'ASC', search = '', filter = {} } = req.query;
         const offset = (page - 1) * limit;
         const where ={}
         
@@ -17,7 +17,7 @@ class SavedPilotController{
                 where[key] = filter[key];
             }
         }
-        const savedPilot = await SavedPilot.findAndCountAll({
+        const savedPilot = await User.findAndCountAll({
             where,
             limit,
             offset,
@@ -45,26 +45,30 @@ class SavedPilotController{
                 }
             })
             if(existingSavedPilot){
-                return res.status(400).json('Pilots already saved');
+                return res.status(400).json({message: 'Pilots already saved'});
             }
             const savedPilot = await SavedPilot.create({
                 idPilot: idPilot,
                 idUser: idUser
             })
-            return res.status(201).json(savedPilot);
+            return res.status(201).json({message: 'Pilot Save'});
         }catch(error){
-            res.status(500).json('Add pilot error');
+            res.status(500).json({ message: `Add pilot error: ${error.message} `});
         }
     }
     async getSavedPilotsForUser(req, res) {
-        const idUser = req.params.idUser; 
+        const {id} = req.params; 
 
         try {
             const userWithPilots = await User.findOne({
-                where: { idUser: idUser },
+                where: { idUser: id },
                 include: [{
                     model: Pilot,
-                    through: { attributes: [] }
+                    through: { attributes: [] },
+                    include: [{
+                        model: Team,
+                        attributes: ['teamName','photoTeam'], 
+                    }],
                 }]
             });
 
@@ -72,18 +76,19 @@ class SavedPilotController{
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            return res.json(userWithPilots.Pilot); 
+            return res.json(userWithPilots.Pilots); 
         } catch (error) {
             console.error('Error fetching saved pilots:', error);
-            return res.status(500).json({ message: 'Internal server error' });
+            return res.status(500).json({ message: `Internal server error ${error.message}` });
         }
     }
     async deleteSavedPilot(req,res){
-        const {idPilot, idUser} = req.body;
+        const {idPilot,idUser} = req.body;
+       
         const deletedSaved = await SavedPilot.destroy({
             where: {
                 idPilot: idPilot,
-                userId: idUser
+                idUser: idUser
             }
         });
 

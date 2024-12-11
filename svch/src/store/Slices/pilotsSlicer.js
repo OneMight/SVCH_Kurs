@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 export const fetchPilots = createAsyncThunk(
     'pilots/fetchPilots',async(page,{rejectWithValue}) =>{
         try{
@@ -37,12 +36,61 @@ export const getByIdPilot = createAsyncThunk(
         }
     }
 )
+export const getSavedPilots = createAsyncThunk(
+    'pilots/getSavedPilots', async (_,{rejectWithValue}) =>{
+        try{
+            const user = JSON.parse(localStorage.getItem('currentUser'))
+            const id = user.user.id
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}savedpilots/${id}`)
+            console.log(response.data)
+            return response.data
+        }catch(error){
+            console.log('Find Saved pilot error');
+            return rejectWithValue(error.message);
+        }
+    }
+)
+export const SavePilot = createAsyncThunk(
+    'pilots/SavePilot' , async (idPilot,{rejectWithValue}) =>{
+        try{
+            const user = JSON.parse(localStorage.getItem('currentUser'))
+            const id = user.user.id
+            await axios.post(`${process.env.REACT_APP_API_URL}savedpilots/save`,{
+                idPilot:idPilot,
+                idUser: id
+            })
+        }catch(error){
+            
+            return rejectWithValue(error.message);
+        }
+    }
+)
+export const DeleteSavePilot = createAsyncThunk(
+    'pilots/DeleteSavePilot' , async (idPilot,{rejectWithValue}) =>{
+        try{
+            const user = JSON.parse(localStorage.getItem('currentUser'))
+            const id = user.user.id
+          
+            await axios.delete(`${process.env.REACT_APP_API_URL}savedpilots/delete`,{
+                data: {
+                    idPilot: idPilot,
+                    idUser: id
+                }
+            })
+        }catch(error){
+            return rejectWithValue(error.message);
+        }
+    }
+)
+
 
 const pilotSlicer = createSlice({
     name:'pilots',
     initialState:{
         pilots:[],
+        savedPilots:null,
         currentPilot:null,
+        comporationPilots:[],
         search:'',
         page:1,
         status: null,
@@ -86,6 +134,29 @@ const pilotSlicer = createSlice({
             state.error = action.payload;
         })
         .addCase(getByIdPilot.pending, (state) =>{
+            state.status = 'loading';
+            state.error = null
+        })
+        .addCase(getSavedPilots.fulfilled, (state, action) => {
+            state.status = 'resolved';
+            state.savedPilots = action.payload;
+        })
+         .addCase(getSavedPilots.rejected, (state, action) =>{
+            state.status ='rejected';
+            state.error = action.payload;
+        })
+        .addCase(getSavedPilots.pending, (state) =>{
+            state.status = 'loading';
+            state.error = null
+        })
+        .addCase(SavePilot.fulfilled, (state, action) => {
+            state.status = 'resolved';
+        })
+         .addCase(SavePilot.rejected, (state, action) =>{
+            state.status ='rejected';
+            state.error = action.payload;
+        })
+        .addCase(SavePilot.pending, (state) =>{
             state.status = 'loading';
             state.error = null
         })

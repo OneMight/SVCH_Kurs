@@ -71,7 +71,8 @@ const User = sequelize.define('User',{
 
 const SavedPilot = sequelize.define('SavedPilot',{
     idSavedPilot:{type:DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
-    idPilot:{type:DataTypes.BIGINT, allowNull:false}
+    idPilot:{type:DataTypes.BIGINT, allowNull:false, references: { model: Pilot, key: 'idPilot' }},
+    idUser: {type:DataTypes.BIGINT, allowNull:false, references: { model: User, key: 'idUser' } }
 })
 const Token = sequelize.define('Token',{
     idToken:{type:DataTypes.BIGINT, primaryKey:true, autoIncrement:true},
@@ -90,8 +91,8 @@ Trophie.belongsTo(Pilot);
 Group.hasMany(Team);
 Team.belongsTo(Group);
 // M:M
-User.belongsToMany(Pilot, {through: SavedPilot});
-Pilot.belongsToMany(User, {through: SavedPilot});
+User.belongsToMany(Pilot, {through: SavedPilot, foreignKey: 'idUser' });
+Pilot.belongsToMany(User, {through: SavedPilot,  foreignKey: 'idPilot' });
 
 //1:M
 Pilot.hasMany(BestCircuit);
