@@ -3,12 +3,12 @@ import './PilotInf.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import Tabes from '../Tabes/Tabes'
-import {  getByIdPilot,SavePilot } from '../../store/Slices/pilotsSlicer'
+import {  getByIdPilot,SavePilot, addToComporation } from '../../store/Slices/pilotsSlicer'
 import Alert from '../ReadyToUseComponents/alert'
 export default function PilotInf(){
     const {id} = useParams();
     const [isCorrect, setIsCorrect] = useState(true)
-
+    const pilots = useSelector(state => state.pilots.comporationPilots)
     const { status, error } = useSelector(state => state.pilots);
     const dispatch = useDispatch();
     
@@ -27,6 +27,11 @@ export default function PilotInf(){
         }
 
     }
+    const HandleComporation = (pilot) =>{
+       dispatch(addToComporation(pilot))
+     
+       console.log(pilots)
+   }
     if(status === 'loading' || status === null || currentPilot ===null){
         return <div>loading</div>
     }
@@ -38,7 +43,7 @@ export default function PilotInf(){
               {status === 'rejected' && <Alert setIsCorrect={setIsCorrect} message='Pilot is already save'/>}
             <div className='buttons-control'>
                 <button className='controll' onClick={() => HandleSavePilot(currentPilot.idPilot)}>Save Pilot</button>
-                <button className='controll'>Add to comparation</button>
+                <button className='controll' onClick={() => HandleComporation(currentPilot)}>Add to comparation</button>
             </div>
             <div className='sub-div'>
                 <article  className='card-pilot' key={currentPilot.idPilot}>

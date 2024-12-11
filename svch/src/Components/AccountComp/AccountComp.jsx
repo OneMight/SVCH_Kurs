@@ -93,8 +93,9 @@ export default function AccountComp(){
                         <Link to='/savedPilots'>
                             <button className='button-user'>Saved pilot</button>
                         </Link>
-                            
-                            <button className='button-user'>Comporation</button>
+                            <Link to='/comporation'>
+                                <button className='button-user'>Comporation</button>
+                            </Link>
                             <button className='button-user'> Support</button>
                         </>
                     ):(

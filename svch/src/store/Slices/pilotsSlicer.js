@@ -99,6 +99,9 @@ const pilotSlicer = createSlice({
     reducers:{
         setCurrentPilot(state, action) {
             state.currentPilot = action.payload;
+        },
+        addToComporation(state,action){
+            state.comporationPilots = [...state.comporationPilots, action.payload]
         }
     },
     extraReducers: (builder) =>{
@@ -162,5 +165,5 @@ const pilotSlicer = createSlice({
         })
      }
 })
-export const {setCurrentPilot} = pilotSlicer.actions;
+export const {setCurrentPilot, addToComporation} = pilotSlicer.actions;
 export default pilotSlicer.reducer;
