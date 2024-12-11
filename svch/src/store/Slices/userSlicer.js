@@ -87,6 +87,18 @@ export const EditInformation = createAsyncThunk(
         }
     }
 )
+export const BlockUser = createAsyncThunk(
+    'users/BlockUser', async (id,{rejectWithValue}) =>{
+        try{
+            await axios.put(`${process.env.REACT_APP_API_URL}user/blockUser/${id}`)
+
+        }
+        catch(error){
+            console.log(error)
+            return rejectWithValue(error);
+        }
+    }
+)
 
 
 

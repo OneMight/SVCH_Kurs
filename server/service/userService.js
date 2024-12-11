@@ -24,7 +24,7 @@ class UserService{
         }
     }
     async login(email,password){
-   
+        
         const user = await User.findOne({
             where:{
                 email: email
@@ -37,6 +37,7 @@ class UserService{
         if(!isPassrowd){
             throw new Error({message: 'Password is incorrenct'})
         }
+        
         const userDto = new UserDto(user)
         const tokens = TokenService.generateTokens({userDto})
         await TokenService.saveToken(userDto.id, tokens.refreshToken);

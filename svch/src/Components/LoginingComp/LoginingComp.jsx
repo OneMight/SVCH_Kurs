@@ -10,6 +10,7 @@ export default function LoginingComp(){
     const dispatch = useDispatch();
     const [email, setemail] = useState('')
     const [isCorrect, setIsCorrect] = useState(true)
+    const [isBlocked, setisBlocked] = useState(false)
     const [password, setpassword] = useState('')
    
     
@@ -22,8 +23,13 @@ export default function LoginingComp(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         const resultAction = await dispatch(login({email,password}));
+        const user = resultAction.payload.user
         if(resultAction.payload == 404){
             setIsCorrect(false)
+            return
+        }
+        else if(user.isBlocked){
+            setisBlocked(true)
             return
         }
         else{
@@ -35,7 +41,8 @@ export default function LoginingComp(){
     return(
         <main className="container-for-reg-log">
            <Header/>
-           {!isCorrect && (<Alert setIsCorrect={setIsCorrect} message='Email or password is incorrect'/>)}
+           {!isCorrect && (<Alert setIsCorrect={setIsCorrect} setisBlocked={setisBlocked} message='Email or password is incorrect'/>)}
+           {isBlocked && (<Alert setisBlocked={setisBlocked} setIsCorrect={setIsCorrect} message='Your accont was blocked by admin'/>)}
             <section className="flex-con">
                 <article className="article-for-form">
                 <form action="/" onSubmit={handleSubmit} className='registration-form width logining-form'>

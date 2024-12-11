@@ -79,8 +79,10 @@ class UserController{
             if(!user){
                 return res.status(404).json('User not found')
             }
-            await user.update(...user,!isBlocked);
-            return res.status(201).json({message: 'User is blocked'})
+            await user.update({
+                isBlocked: !user.isBlocked
+            });
+            return res.status(201).json({message: `User is blocked`})
         }catch(error){
             return res.status(500).json('Something went wrong')
         }

@@ -81,6 +81,9 @@
     border-bottom: none;
     margin-bottom: 2px;
 }
+.block{
+    width: 100px;
+}
 
 @media  (max-width:768px) {
    .user-inf{

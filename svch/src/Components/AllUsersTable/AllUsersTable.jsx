@@ -6,13 +6,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import {BlockUser} from '../../store/Slices/userSlicer'
+import { useDispatch } from 'react-redux';
 function createData(idUser, name, login, email, age, nationality,isBlocked) {
   return { idUser, name, login, email, age, nationality,isBlocked };
 }
 
 
 export default function BasicTable(props) {
+  const dispatch = useDispatch()
     const users = props.user;
     const rows = users.map(user =>(
             createData(user.idUser,user.name,
@@ -20,7 +22,10 @@ export default function BasicTable(props) {
                 user.isBlocked
             )
         ))
-    
+    const HandleBlock = (id)=>{
+      dispatch(BlockUser(id))
+      document.location.reload();
+    }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 320 }} aria-label="simple table">
@@ -33,7 +38,8 @@ export default function BasicTable(props) {
             <TableCell align="right">Email&nbsp;</TableCell>
             <TableCell align="right">Age&nbsp;</TableCell>
             <TableCell align="right">Nationality&nbsp;</TableCell>
-            <TableCell align="right">is Blocked&nbsp;</TableCell>
+            <TableCell align="center">is Blocked&nbsp;</TableCell>
+            <TableCell align="right"></TableCell>            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -50,7 +56,22 @@ export default function BasicTable(props) {
               <TableCell align="right">{row.email}</TableCell>
               <TableCell align="right">{row.age}</TableCell>
               <TableCell align="right">{row.nationality}</TableCell>
-              <TableCell align="right">{row.isBlocked}</TableCell>
+              <TableCell align="center">
+                {row.isBlocked ?(
+                  <span>Blocked</span>
+                ):(
+                  <span>Not blocked</span>
+                )}
+              </TableCell>
+              <TableCell align="center"><button className='button-user block' onClick={()=> HandleBlock(row.idUser)}>
+                {row.isBlocked === false? (
+                    <span>Block</span>
+                ):(
+                  <span>unblock</span>
+                )}
+                
+                </button>
+              </TableCell>
               
             </TableRow>
           ))}

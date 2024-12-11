@@ -107,6 +107,11 @@
     }
     
 }
+@media screen and (max-width: 500px) {
+    .button-for-reg-log{
+        flex-direction: column;
+    }
+}
 @media screen and (max-width:320px) {
     .Center-text{
         width: 90%;
