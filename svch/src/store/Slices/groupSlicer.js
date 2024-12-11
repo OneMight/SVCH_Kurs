@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchGroups = createAsyncThunk(
     'groups/fetchGroups',async(_,{rejectWithValue}) =>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/group?limit=7`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}group?limit=7`)
             return response.data;
             }
         catch(error){
@@ -16,7 +16,7 @@ export const fetchGroups = createAsyncThunk(
 export const searchGroups = createAsyncThunk(
     'groups/searchGroups', async (search,{rejectWithValue})=>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/group?limit=4&search=${search}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}group?limit=4&search=${search}`)
             const data = response.data;
             return data
 

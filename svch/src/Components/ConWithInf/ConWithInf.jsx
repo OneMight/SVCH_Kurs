@@ -1,7 +1,6 @@
 import './ConWithInf.css'
 import { useState } from 'react'
 export default function ConWithInf(group){
-    console.log(group)
     const groups = group.group
     const [open,setOpen] = useState(null)
 

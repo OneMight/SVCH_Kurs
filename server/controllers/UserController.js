@@ -96,12 +96,13 @@ class UserController{
     }
     async logining(req,res){
         try{
-            const {email, password, login} = req.body;
-            const userData = await userService.login(email,password,login);
+            const {email, password} = req.body;
+            
+            const userData = await userService.login(email,password);
             res.cookie('refreshToken', userData.refreshToken,{maxAge:10*24*60*60*1000, httpOnly:true})
             return res.status(200).json(userData)
         }catch(e){
-            
+            return res.status(404).json({message: e.message})
         }
     }
     async logout(req,res){

@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 export const fetchPilots = createAsyncThunk(
     'pilots/fetchPilots',async(page,{rejectWithValue}) =>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/pilot?limit=7&page=${page}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}pilot?limit=7&page=${page}`)
             return response.data;
             }
         catch(error){
@@ -16,7 +17,7 @@ export const fetchPilots = createAsyncThunk(
 export const searchPilots = createAsyncThunk(
     'pilots/searchPilots', async (search,{rejectWithValue})=>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/pilot?limit=10&search=${search}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}pilot?limit=10&search=${search}`)
             const data = response.data;
             return data
         }catch(error){
@@ -28,7 +29,7 @@ export const searchPilots = createAsyncThunk(
 export const getByIdPilot = createAsyncThunk(
     'pilots/getByIdPilot',async(id,{rejectWithValue}) =>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/pilot/${id}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}pilot/${id}`)
             return response.data
         }catch(error){
             console.log('Find pilot error');

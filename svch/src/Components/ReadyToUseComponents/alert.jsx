@@ -6,6 +6,11 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 export default function TransitionAlerts(props) {
     const [open, setOpen] = React.useState(true);
+    const closed = () =>{
+      setOpen(false);
+      props.setIsCorrect(true)
+    }
+
   return (
     <Box sx={{ width: '50%' }}>
       <Collapse in={open}>
@@ -16,13 +21,14 @@ export default function TransitionAlerts(props) {
               color="inherit"
               size="small"
               onClick={() => {
-                setOpen(false);
+                closed();
               }}
             >
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }
           sx={{ mb: 2 }}
+          severity='error'
         >
           {props.message}
         </Alert>

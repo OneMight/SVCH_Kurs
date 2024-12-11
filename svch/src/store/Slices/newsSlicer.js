@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 
+
 export const fetchNews = createAsyncThunk(
     'news/fetchNews', async(_,{rejectWithValue}) =>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/news?limit=10`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}news?limit=10`)
             
             return response.data
         }catch(error){

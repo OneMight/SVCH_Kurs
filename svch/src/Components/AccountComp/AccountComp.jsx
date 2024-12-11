@@ -1,14 +1,16 @@
 import { useNavigate} from 'react-router-dom'
 import './AccountComp.css'
 import {logout} from '../../store/Slices/userSlicer'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function AccountComp(){
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const userData = JSON.parse(localStorage.getItem('currentUser'))
-    const user = userData.user
 
+
+    const user = userData.user
+   
     const LogoutFunc = () =>{
         dispatch(logout()).then(()=>{
             navigate('/')   
@@ -39,15 +41,16 @@ export default function AccountComp(){
                     
                 </div>
                 <div className='buttons-div'>
-                    {user.role == "user" ? (
+                    {
+                    user.role === "user                                              " ? (
                         <>
-                            <button className='button-user'>Check users</button>
+                            <button className='button-user'>Saved pilot</button>
+                            <button className='button-user'>Comporation</button>
+                            <button className='button-user'> Support</button>
                         </>
                     ):(
                         <>
-                        <button className='button-user'>Saved pilot</button>
-                            <button className='button-user'>Comporation</button>
-                            <button className='button-user'> Support</button>
+                            <button className='button-user'>Check users</button>
                         </>
                        
                     )}

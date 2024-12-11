@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 export const fetchTeams = createAsyncThunk(
     'teams/fetchTeams',async(page,{rejectWithValue}) =>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/teams?limit=7&page=${page}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}teams?limit=7&page=${page}`)
             
             return response.data;
             }
@@ -16,7 +17,7 @@ export const fetchTeams = createAsyncThunk(
 export const searchTeams = createAsyncThunk(
     'teams/searchTeams', async (search,{rejectWithValue})=>{
         try{
-            const response = await axios.get(`http://localhost:5000/api/teams?limit=10&search=${search}`)
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}teams?limit=10&search=${search}`)
             const data = response.data;
             return data
         }catch(error){
