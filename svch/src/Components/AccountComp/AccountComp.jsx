@@ -38,6 +38,7 @@ export default function AccountComp(){
         })
         
     }
+
     return(
         <main className='account-main'>
             <article className='account-card'>
@@ -103,6 +104,7 @@ export default function AccountComp(){
                             <Link to={'/adminTable'}>
                                 <button className='button-user'>Check users</button>
                             </Link>
+                            <button className='button-user'>Create report</button>
                             
                         </>
                        

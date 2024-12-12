@@ -8,8 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {BlockUser} from '../../store/Slices/userSlicer'
 import { useDispatch } from 'react-redux';
-function createData(idUser, name, login, email, age, nationality,isBlocked) {
-  return { idUser, name, login, email, age, nationality,isBlocked };
+function createData(idUser, name, login, email, age, nationality,isBlocked,role) {
+  return { idUser, name, login, email, age, nationality,isBlocked,role };
 }
 
 
@@ -19,7 +19,7 @@ export default function BasicTable(props) {
     const rows = users.map(user =>(
             createData(user.idUser,user.name,
                 user.login, user.email, user.age, user.nationality,
-                user.isBlocked
+                user.isBlocked, user.role
             )
         ))
     const HandleBlock = (id)=>{
@@ -63,8 +63,9 @@ export default function BasicTable(props) {
                   <span>Not blocked</span>
                 )}
               </TableCell>
-              <TableCell align="center"><button className='button-user block' onClick={()=> HandleBlock(row.idUser)}>
-                {row.isBlocked === false? (
+              {row.role === "user                                              "?(
+                 <TableCell align="center"><button className='button-user block' onClick={()=> HandleBlock(row.idUser)}>
+                   {row.isBlocked === false? (
                     <span>Block</span>
                 ):(
                   <span>unblock</span>
@@ -72,7 +73,9 @@ export default function BasicTable(props) {
                 
                 </button>
               </TableCell>
-              
+              ):(
+                <></>
+              )}  
             </TableRow>
           ))}
         </TableBody>
