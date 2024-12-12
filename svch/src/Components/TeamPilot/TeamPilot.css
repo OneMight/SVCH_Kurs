@@ -37,7 +37,7 @@
     font-size: 30px;
     margin: 5px 0;
 }
-.description{
+.description-team{
     margin: 5px 30px;
     text-align: justify;
 }
@@ -45,4 +45,16 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+@media  (max-width:768px){
+    .pilot-team-con{
+        flex-direction: column;
+    }
+    .group-con{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px 20px 0 0;
+    }
 }

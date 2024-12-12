@@ -10,7 +10,7 @@ export default function TeamPilot(props){
                     <p className="title">{props.pilotTeam.teamName}</p>
                 </div>
                 <div className="description-con">
-                    <p className="description">{props.pilotTeam.desciption}</p>
+                    <p className="description-team">{props.pilotTeam.desciption}</p>
                 </div>
             </div>
         </article>

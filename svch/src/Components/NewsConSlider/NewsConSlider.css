@@ -59,6 +59,7 @@
     margin-top: 50px;
     background-color: #221F1F;
     transition: all, 0.2s;
+    text-decoration: none;
 }
 .more-news-button > p{
     color: #A8A8A8;

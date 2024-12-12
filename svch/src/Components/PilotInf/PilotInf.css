@@ -92,3 +92,33 @@ p{
 .controll:active{
     background-color: #b42727;
 }
+.description{
+    margin: 5px 20px;
+}
+
+@media (max-width:768px) {
+    .information{
+        flex-direction: column;
+    }
+    .inf-field{
+        width: 90%;
+    }
+    .selection-pilots{
+        width: 100%;
+    }
+    .description{
+        margin: 0px;
+    }
+}   
+@media (max-width:320px) {
+   .buttons-control{
+    flex-direction: column;
+    gap: 20px;
+   }
+   .selection-pilots{
+    width: 290px;
+    }
+    .description{
+        font-size: 15px;
+    }
+}   

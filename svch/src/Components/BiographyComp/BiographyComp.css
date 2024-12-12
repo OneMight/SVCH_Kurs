@@ -20,3 +20,10 @@ p{
     color: #ffffff;
     text-align: justify;
 }
+
+@media (max-width:320px) {
+
+     .description{
+         font-size: 15px;
+     }
+ }   

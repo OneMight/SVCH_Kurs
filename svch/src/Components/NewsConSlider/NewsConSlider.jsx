@@ -1,6 +1,7 @@
 import './NewsConSlider.css'
 import { useState,useEffect } from 'react'
 import NewsCon from '../NewsCon/NewsCon';
+import { Link } from 'react-router-dom';
 export default function NewsConSlider(){
     useEffect(()=>{
         let slider = document.querySelector('.slider');
@@ -43,11 +44,11 @@ export default function NewsConSlider(){
                      
                     <img src="./images/Next.png" alt="" className='right slider-button'/>
                 </div>
-                <button className='more-news-button'>
+                <Link to='/news' className='more-news-button'>
                     <p>
                         More news
                     </p>
-                    </button>
+                </Link>
             </section>
         </main>
     )

@@ -41,3 +41,24 @@
     row-gap: 20px;
     margin: auto;
 }
+
+@media (max-width: 768px){
+    .best-curcuit-div{
+        flex-direction: column;
+        align-items: center;
+    }
+    .image-curcuit>img{
+        border-radius: 20px 20px 0 0;
+        width: 100%
+    }
+    .curcuit-title>p{
+        margin: 5px 0;
+        font-size: 25px;
+    }
+    .curcuit-description{
+        margin: 10px;
+    }
+    .curcuit-description>p{
+        font-size: 15px;
+    }
+}

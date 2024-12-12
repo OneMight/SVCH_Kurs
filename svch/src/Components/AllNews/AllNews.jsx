@@ -12,7 +12,6 @@ export default function AllNews(){
     },[])
     const news = useSelector(state => state.news.news)
     const newsArray = news.data
-    console.log(process.env.REACT_APP_API_URL)
     if(status === 'rejected'){
         return <div>Error: {error}</div>
     }
