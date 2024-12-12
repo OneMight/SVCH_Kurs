@@ -10,6 +10,7 @@ export default function SavedPilots(){
     const userData = JSON.parse(localStorage.getItem('currentUser'))
     const user = userData.user
     const [currenctpage, setPage] = useState(1);
+    const {status,error} = useSelector(state => state.pilots)
     const [search, setSearch] = useState('')
     const { savedPilots}  = useSelector(state => state.pilots)
     const dispatch = useDispatch()
@@ -17,20 +18,16 @@ export default function SavedPilots(){
         dispatch(getSavedPilots());
        
     },[])
-  
-    const data = savedPilots || [];
-
-    const HandleSearch = (e) => {
-        setSearch(e.target.value)
+    
+    if(status === 'loading' || status === null){
+        return <div>loading</div>
     }
 
-    const Search = () =>{
-        if(search){
-            dispatch(searchPilots(search))
-        }
-        else{
-            dispatch(getSavedPilots());
-        }
+    const data = savedPilots.data[0].Pilots;
+   
+    console.log(data)
+    const HandleSearch = (e) => {
+        setSearch(e.target.value)
     }
     
     const SwitchRight = ()=>{
@@ -76,17 +73,13 @@ export default function SavedPilots(){
     
         pdfDoc.save(`${user.name}_Report.pdf`);
     }
-    console.log(data)
+
     return(
         <main className='pilot-main'>
             {data.length === 0 ? (
                 <><p className='error-Saved-Pilots'>You don't save any Pilots</p></>
             ):(
                 <>
-                <div className='search-input'>
-                    <input className='input' type="text" onChange={HandleSearch} value={search} placeholder='Search....'/>
-                    <button className='search' onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
-                </div>
                 <button className='button-user' onClick={generate}>Report</button>
                 <section className='filters-and-pilots'>
                     <article className='filters-div'> 

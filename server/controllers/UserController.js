@@ -7,7 +7,7 @@ const UserService = require('../service/userService');
 const userService = require('../service/userService');
 class UserController{
     async getUsers(req,res){
-        const { page = 1, limit = 10, sortBy = 'idUser', order = 'ASC', search = ''} = req.query;
+        const { page = 1, limit = 10, search = ''} = req.query;
         const offset = (page - 1) * limit;
         const where ={}
         

@@ -57,10 +57,18 @@ class SavedPilotController{
         }
     }
     async getSavedPilotsForUser(req, res) {
-        const {id} = req.params; 
-
+        const {id} = req.params;   
+        const { page = 1, limit = 10, search = ''} = req.query;
+        const offset = (page - 1) * limit;
+        if(search){
+            where[Op.or]= [
+                {PilotName:{[Op.like]: `%${search}%`}},
+            ]
+        }
         try {
-            const userWithPilots = await User.findOne({
+            const userWithPilots = await User.findAndCountAll({
+                offset,
+                limit,
                 where: { idUser: id },
                 include: [{
                     model: Pilot,
@@ -75,8 +83,12 @@ class SavedPilotController{
             if (!userWithPilots) {
                 return res.status(404).json({ message: 'User not found' });
             }
-
-            return res.json(userWithPilots.Pilots); 
+            return res.json({
+                total:userWithPilots.count,
+                pages: Math.ceil(userWithPilots.count / limit),
+                data: userWithPilots.rows
+            }); 
+        
         } catch (error) {
             console.error('Error fetching saved pilots:', error);
             return res.status(500).json({ message: `Internal server error ${error.message}` });
