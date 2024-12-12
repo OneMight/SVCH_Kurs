@@ -2,7 +2,7 @@ import { useNavigate,Link} from 'react-router-dom'
 import './AccountComp.css'
 import {logout, EditInformation} from '../../store/Slices/userSlicer'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export default function AccountComp(){
    
@@ -97,7 +97,10 @@ export default function AccountComp(){
                                 <Link to='/comporation'>
                                     <button className='button-user'>Comporation</button>
                                 </Link>
-                                <button className='button-user'> Support</button>
+                                <Link to='/sendQuestion'>
+                                    <button className='button-user'> Support</button>
+                                </Link>
+                              
                                
                         </>
                     ):(

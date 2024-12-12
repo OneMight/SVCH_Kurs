@@ -1,5 +1,5 @@
 import './NewsCon.css'
-import { useEffect,useState } from 'react';
+import { useEffect } from 'react';
 import {fetchNews} from '../../store/Slices/newsSlicer'
 import { useDispatch,useSelector } from 'react-redux';
 export default function NewsCon(){
@@ -10,7 +10,7 @@ export default function NewsCon(){
     console.log(News)
     useEffect(()=>{
         dispatch(fetchNews())
-    },[])
+    })
     if(status === 'loading' || status ===null){
         return <div>Loading</div>
     }
@@ -27,7 +27,7 @@ export default function NewsCon(){
                 </div>
             </div>
             <div>
-                <img src={`/images/${News.photo}`} alt="" />
+                <img src={`/images/${News.photo}`} />
             </div>
         </article>
         ))

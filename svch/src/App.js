@@ -11,6 +11,7 @@ import AccountPage from './Pages/AccountPage'
 import UsersPage from './Pages/UsersPage'
 import SavedPilotsPage from './Pages/SavedPilotsPage'
 import Comporation from './Pages/ComporationPage';
+import SendQuestion from './Pages/SendQuestionPage'
 export default function App() {
   function RequireAuth({ children }) {
     let location = useLocation();
@@ -57,6 +58,7 @@ export default function App() {
             <Route path='/adminTable' element={<UsersPage/>}/>
             <Route path='/savedPilots' element={<SavedPilotsPage/>}/>
             <Route path='/comporation' element={<Comporation/>}/>
+            <Route path='/sendQuestion' element={<SendQuestion/>}/>
           
         </Routes>
    

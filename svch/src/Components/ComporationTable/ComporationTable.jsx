@@ -15,7 +15,6 @@ function createData(Name,Year, Team, Starts, Points, Wins, Podiums,PoulPos,PosIn
 
 export default function ComporationTable(){
     const pilots = useSelector(state => state.pilots.comporationPilots)
-    console.log(pilots)
     const rows = pilots.map(stat =>(
         createData(stat.PilotName,stat.PilotStats[0].year,stat.Team.teamName,
             stat.PilotStats[0].Starts, stat.PilotStats[0].Scores,

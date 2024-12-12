@@ -1,6 +1,5 @@
 import HomeFirstCon from "../Components/HomeFirstCon/HomeFirstCon"
 import HomeGroupCon from "../Components/HomeGroupCon/HomeGroupCon"
-import NewsConSlider from "../Components/NewsConSlider/NewsConSlider"
 import PredFooterCon from "../Components/PredFooterCon/PredFooterCon"
 import Footer from "../Components/Footer/Footer"
 export default function HomePage(){

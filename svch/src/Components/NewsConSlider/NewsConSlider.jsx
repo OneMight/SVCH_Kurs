@@ -1,5 +1,5 @@
 import './NewsConSlider.css'
-import { useState,useEffect } from 'react'
+import { useEffect } from 'react'
 import NewsCon from '../NewsCon/NewsCon';
 import { Link } from 'react-router-dom';
 export default function NewsConSlider(){

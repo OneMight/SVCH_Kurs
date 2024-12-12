@@ -2,7 +2,7 @@
 import OnePilotCon from '../OnePilotCon/OnePilotCon'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {getSavedPilots, searchPilots} from '../../store/Slices/pilotsSlicer'
+import {getSavedPilots} from '../../store/Slices/pilotsSlicer'
 import {jsPDF,} from 'jspdf'
 
 import autoTable from "jspdf-autotable"
@@ -10,26 +10,20 @@ export default function SavedPilots(){
     const userData = JSON.parse(localStorage.getItem('currentUser'))
     const user = userData.user
     const [currenctpage, setPage] = useState(1);
-    const {status,error} = useSelector(state => state.pilots)
-    const [search, setSearch] = useState('')
+    const {status} = useSelector(state => state.pilots)
     const { savedPilots}  = useSelector(state => state.pilots)
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getSavedPilots());
        
-    },[])
+    })
     
     if(status === 'loading' || status === null){
         return <div>loading</div>
     }
 
     const data = savedPilots.data[0].Pilots;
-   
-    console.log(data)
-    const HandleSearch = (e) => {
-        setSearch(e.target.value)
-    }
-    
+
     const SwitchRight = ()=>{
         if(currenctpage + 1 > savedPilots.pages){
             alert("Максимальная страницы");
