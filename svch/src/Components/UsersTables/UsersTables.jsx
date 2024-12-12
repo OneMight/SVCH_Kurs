@@ -5,11 +5,7 @@ import './UsersTables.css'
 import BasicTable from '../AllUsersTable/AllUsersTable'
 
 import {jsPDF,} from 'jspdf'
-import {
-     firstTableColumns,
-     firstTableData,
-     secondTableColumns,
-     secondTableData} from 'jspdf-autotable'
+
 import autoTable from "jspdf-autotable"
 
 export default function UsersTables(){
@@ -23,13 +19,17 @@ export default function UsersTables(){
           dispatch(fetchUsers());
     },[])
     const data = users.data || [];
-    console.log(data)
     if(status ===null || status ==='loading'){
         return <p>Loading</p>
     }
     function generate() {
         const pdfDoc = new jsPDF();
-        pdfDoc.text("All users report", 15, 10);
+        pdfDoc.setFont("times", "bold");
+        pdfDoc.setFontSize(14);
+        pdfDoc.setCharSpace(0.5);
+        const formattedDate = new Date().toLocaleDateString();
+        pdfDoc.text(`All users report. Date: ${formattedDate}`, 10, 10);
+        pdfDoc.text(`Creator of report: ${user.name}`, 10,20)
         const columns = ["Email", "Name", "Login","Age","Nationality",];
         const rows = data.map(user => [user.email, user.name, user.login, user.age, user.nationality]);
 
@@ -38,7 +38,8 @@ export default function UsersTables(){
           headStyles: { fontSize: 10 },
           bodyStyles: { fontSize: 8, fontStyle: "italic" },
           head:[columns],
-          body: rows
+          body: rows,
+          startY: 40,
         });
     
         pdfDoc.save("UsersReport.pdf");

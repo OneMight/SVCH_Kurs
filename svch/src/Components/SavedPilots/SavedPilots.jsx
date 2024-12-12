@@ -3,9 +3,12 @@ import OnePilotCon from '../OnePilotCon/OnePilotCon'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {getSavedPilots, searchPilots} from '../../store/Slices/pilotsSlicer'
+import {jsPDF,} from 'jspdf'
 
+import autoTable from "jspdf-autotable"
 export default function SavedPilots(){
-
+    const userData = JSON.parse(localStorage.getItem('currentUser'))
+    const user = userData.user
     const [currenctpage, setPage] = useState(1);
     const [search, setSearch] = useState('')
     const { savedPilots}  = useSelector(state => state.pilots)
@@ -50,6 +53,30 @@ export default function SavedPilots(){
             dispatch(getSavedPilots());
         }
     }
+    
+    function generate() {
+        const pdfDoc = new jsPDF();
+        pdfDoc.setFont("times", "bold");
+        pdfDoc.setFontSize(14);
+        pdfDoc.setCharSpace(0.5);
+        const formattedDate = new Date().toLocaleDateString();
+        pdfDoc.text(`Saved Pilots report. Date: ${formattedDate}`, 10, 10);
+        pdfDoc.text(`Creator of report: ${user.name}`, 10,20)
+        const columns = ["Pilot name", "Team name", "Age","Nationality"];
+        const rows = data.map(pilot => [pilot.PilotName, pilot.Team.teamName, pilot.Age, pilot.Nationality]);
+
+        autoTable(pdfDoc, {
+          theme: "grid",
+          headStyles: { fontSize: 10 },
+          bodyStyles: { fontSize: 10, fontStyle: "italic" },
+          head:[columns],
+          body: rows,
+          startY: 40,
+        });
+    
+        pdfDoc.save(`${user.name}_Report.pdf`);
+    }
+    console.log(data)
     return(
         <main className='pilot-main'>
             {data.length === 0 ? (
@@ -60,6 +87,7 @@ export default function SavedPilots(){
                     <input className='input' type="text" onChange={HandleSearch} value={search} placeholder='Search....'/>
                     <button className='search' onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>
                 </div>
+                <button className='button-user' onClick={generate}>Report</button>
                 <section className='filters-and-pilots'>
                     <article className='filters-div'> 
                         <p>Filters</p>
