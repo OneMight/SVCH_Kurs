@@ -1,13 +1,16 @@
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import TableCell,{ tableCellClasses } from '@mui/material/TableCell';
 import './ComporationTable.css'
 import { useSelector } from 'react-redux';
+
 
 function createData(Name,Year, Team, Starts, Points, Wins, Podiums,PoulPos,PosInSeason) {
     return { Name,Year, Team, Starts, Points, Wins, Podiums, PoulPos, PosInSeason };
@@ -23,6 +26,27 @@ export default function ComporationTable(){
         )
     ))
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+          backgroundColor: '#1f1f1f',
+          color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+          fontSize: 14,
+        },
+      }));
+      
+      const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+          backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+          border: 0,
+        },
+      }));
+    
+
     return(
         <main className='comporation-main'>
             {pilots.length ===0 ?(
@@ -34,35 +58,35 @@ export default function ComporationTable(){
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                             <TableRow>
-                                <TableCell align="right">Name</TableCell>
-                                <TableCell align="right">Year</TableCell>
-                                <TableCell align="right">Team&nbsp;</TableCell>
-                                <TableCell align="right">Starts&nbsp;</TableCell>
-                                <TableCell align="right">Points&nbsp;</TableCell>
-                                <TableCell align="right">Wins&nbsp;</TableCell>
-                                <TableCell align="right">Podiums&nbsp;</TableCell>
-                                <TableCell align="right">Poul-pos&nbsp;</TableCell>
-                                <TableCell align="right">Pos in season&nbsp;</TableCell>
+                                <StyledTableCell align="right">Name</StyledTableCell>
+                                <StyledTableCell align="right">Year</StyledTableCell>
+                                <StyledTableCell align="right">Team&nbsp;</StyledTableCell>
+                                <StyledTableCell align="right">Starts&nbsp;</StyledTableCell>
+                                <StyledTableCell align="right">Points&nbsp;</StyledTableCell>
+                                <StyledTableCell align="right">Wins&nbsp;</StyledTableCell>
+                                <StyledTableCell align="right">Podiums&nbsp;</StyledTableCell>
+                                <StyledTableCell align="right">Poul-pos&nbsp;</StyledTableCell>
+                                <StyledTableCell align="right">Pos in season&nbsp;</StyledTableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
                             {rows.map((row) => (
-                                <TableRow
+                                <StyledTableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
-                                <TableCell component="th" scope="row">
-                                {row.Name}
-                                </TableCell>
-                                <TableCell align="right">{row.Year}</TableCell>
-                                <TableCell align="right">{row.Team}</TableCell>
-                                <TableCell align="right">{row.Starts}</TableCell>
-                                <TableCell align="right">{row.Points}</TableCell>
-                                <TableCell align="right">{row.Wins}</TableCell>
-                                <TableCell align="right">{row.Podiums}</TableCell>
-                                <TableCell align="right">{row.PoulPos}</TableCell>
-                                <TableCell align="right">{row.PosInSeason}</TableCell>
-                                </TableRow>
+                                    <StyledTableCell component="th" scope="row">
+                                    {row.Name}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">{row.Year}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.Team}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.Starts}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.Points}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.Wins}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.Podiums}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.PoulPos}</StyledTableCell>
+                                    <StyledTableCell align="right">{row.PosInSeason}</StyledTableCell>
+                                </StyledTableRow>
                             ))}
                             </TableBody>
                         </Table>

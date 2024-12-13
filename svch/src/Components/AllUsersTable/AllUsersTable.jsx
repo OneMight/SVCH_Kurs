@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import { tableCellClasses } from '@mui/material/TableCell';
 import {BlockUser} from '../../store/Slices/userSlicer'
 import { useDispatch } from 'react-redux';
 function createData(idUser, name, login, email, age, nationality,isBlocked,role) {
@@ -26,45 +28,65 @@ export default function BasicTable(props) {
       dispatch(BlockUser(id))
       document.location.reload();
     }
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+      [`&.${tableCellClasses.head}`]: {
+        backgroundColor: '#1f1f1f',
+        color: theme.palette.common.white,
+      },
+      [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+      },
+    }));
+    
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+      // hide last border
+      '&:last-child td, &:last-child th': {
+        border: 0,
+      },
+    }));
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 320 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <StyledTableRow>
             
-            <TableCell align="right">Id</TableCell>
-            <TableCell align="right">Name&nbsp;</TableCell>
-            <TableCell align="right">Login&nbsp;</TableCell>
-            <TableCell align="right">Email&nbsp;</TableCell>
-            <TableCell align="right">Age&nbsp;</TableCell>
-            <TableCell align="right">Nationality&nbsp;</TableCell>
-            <TableCell align="center">is Blocked&nbsp;</TableCell>
-            <TableCell align="right"></TableCell>            
-          </TableRow>
+            <StyledTableCell align="right">Id</StyledTableCell>
+            <StyledTableCell align="right">Name&nbsp;</StyledTableCell>
+            <StyledTableCell align="right">Login&nbsp;</StyledTableCell>
+            <StyledTableCell align="right">Email&nbsp;</StyledTableCell>
+            <StyledTableCell align="right">Age&nbsp;</StyledTableCell>
+            <StyledTableCell align="right">Nationality&nbsp;</StyledTableCell>
+            <StyledTableCell align="center">is Blocked&nbsp;</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>            
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow
+            <StyledTableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <StyledTableCell component="th" scope="row">
                 {row.idUser}
-              </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.login}</TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">{row.age}</TableCell>
-              <TableCell align="right">{row.nationality}</TableCell>
-              <TableCell align="center">
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.name}</StyledTableCell>
+              <StyledTableCell align="right">{row.login}</StyledTableCell>
+              <StyledTableCell align="right">{row.email}</StyledTableCell>
+              <StyledTableCell align="right">{row.age}</StyledTableCell>
+              <StyledTableCell align="right">{row.nationality}</StyledTableCell>
+              <StyledTableCell align="center">
                 {row.isBlocked ?(
                   <span>Blocked</span>
                 ):(
                   <span>Not blocked</span>
                 )}
-              </TableCell>
+              </StyledTableCell>
               {row.role === "user                                              "?(
-                 <TableCell align="center"><button className='button-user block' onClick={()=> HandleBlock(row.idUser)}>
+                 <StyledTableCell align="center"><button className='button-user block' onClick={()=> HandleBlock(row.idUser)}>
                    {row.isBlocked === false? (
                     <span>Block</span>
                 ):(
@@ -72,11 +94,11 @@ export default function BasicTable(props) {
                 )}
                 
                 </button>
-              </TableCell>
+              </StyledTableCell>
               ):(
                 <></>
               )}  
-            </TableRow>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

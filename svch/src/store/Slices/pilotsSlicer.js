@@ -88,7 +88,7 @@ const pilotSlicer = createSlice({
     name:'pilots',
     initialState:{
         pilots:[],
-        savedPilots:null,
+        savedPilots:[],
         currentPilot:null,
         comporationPilots:[],
         search:'',

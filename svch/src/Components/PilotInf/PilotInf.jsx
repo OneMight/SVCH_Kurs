@@ -30,7 +30,6 @@ export default function PilotInf(){
     const HandleComporation = (pilot) =>{
        dispatch(addToComporation(pilot))
      
-       console.log(pilots)
    }
     if(status === 'loading' || status === null || currentPilot ===null){
         return <div>loading</div>
@@ -49,7 +48,7 @@ export default function PilotInf(){
                 <article  className='card-pilot' key={currentPilot.idPilot}>
                     <div className='information'>
                             <img className='photo-pilot' src={`/images/${currentPilot.photoPilot}`} alt="" />
-                        <div className='inf-field'>
+                        <div className='inf-field' >
                             <div>
                                 <p>Name: {currentPilot.PilotName}</p>
                             </div>

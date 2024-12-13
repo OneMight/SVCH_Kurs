@@ -11,7 +11,7 @@ export default function SavedPilots(){
     const user = userData.user
     const [currenctpage, setPage] = useState(1);
     const {status} = useSelector(state => state.pilots)
-    const { savedPilots}  = useSelector(state => state.pilots)
+    const  savedPilots  = useSelector(state => state.pilots.savedPilots)
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getSavedPilots());
