@@ -16,14 +16,15 @@ export default function SavedPilots(){
     useEffect(()=>{
         dispatch(getSavedPilots());
        
-    })
+    },[])
     
     if(status === 'loading' || status === null){
         return <div>loading</div>
     }
 
-    const data = savedPilots.data[0].Pilots;
-
+    const data = savedPilots.data[0].Pilots || [];
+    
+    console.log(data)
     const SwitchRight = ()=>{
         if(currenctpage + 1 > savedPilots.pages){
             alert("Максимальная страницы");
@@ -44,6 +45,7 @@ export default function SavedPilots(){
             dispatch(getSavedPilots());
         }
     }
+    
     
     function generate() {
         const pdfDoc = new jsPDF();
@@ -67,7 +69,7 @@ export default function SavedPilots(){
     
         pdfDoc.save(`${user.name}_Report.pdf`);
     }
-
+    
     return(
         <main className='pilot-main'>
             {data.length === 0 ? (

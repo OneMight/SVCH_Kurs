@@ -37,15 +37,15 @@ export const getByIdPilot = createAsyncThunk(
     }
 )
 export const getSavedPilots = createAsyncThunk(
-    'pilots/getSavedPilots', async (_,{rejectWithValue}) =>{
+    'pilots/getSavedPilots', async (_,{rejectWithValue,dispatch}) =>{
         try{
             const user = JSON.parse(localStorage.getItem('currentUser'))
             const id = user.user.id
             const response = await axios.get(`${process.env.REACT_APP_API_URL}savedpilots/${id}`)
-            console.log(response.data)
+            dispatch(addSavedPilots(response.data))
             return response.data
         }catch(error){
-            console.log('Find Saved pilot error');
+            console.log('Find Saved pilot error'+error);
             return rejectWithValue(error.message);
         }
     }
@@ -102,6 +102,9 @@ const pilotSlicer = createSlice({
         },
         addToComporation(state,action){
             state.comporationPilots = [...state.comporationPilots, action.payload]
+        },
+        addSavedPilots(state,action){
+            state.savedPilots = [...state.savedPilots,action.payload]
         }
     },
     extraReducers: (builder) =>{
@@ -165,5 +168,5 @@ const pilotSlicer = createSlice({
         })
      }
 })
-export const {setCurrentPilot, addToComporation} = pilotSlicer.actions;
+export const {setCurrentPilot, addToComporation,addSavedPilots} = pilotSlicer.actions;
 export default pilotSlicer.reducer;

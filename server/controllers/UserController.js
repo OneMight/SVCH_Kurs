@@ -23,7 +23,7 @@ class UserController{
             where,
             limit,
             offset,
-            order: [[sortBy,order]]
+           
         });
         return res.json({
             total:users.count,

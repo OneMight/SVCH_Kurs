@@ -8,7 +8,14 @@ body {
   overflow-y: scroll;
   background-color: #2C2B2B;
   overflow-x: hidden;
-
+  min-height: 100vh;
+}
+#root{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 body::-webkit-scrollbar{
     width: 6px;
