@@ -7,7 +7,7 @@ import {  getByIdPilot,SavePilot, addToComporation } from '../../store/Slices/pi
 import Alert from '../ReadyToUseComponents/alert'
 export default function PilotInf(){
     const {id} = useParams();
-    const [isCorrect, setIsCorrect] = useState(true)
+    const [isCorrect, setisBlocked] = useState(true)
     const pilots = useSelector(state => state.pilots.comporationPilots)
     const { status, error } = useSelector(state => state.pilots);
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function PilotInf(){
              dispatch(SavePilot(id))
         }
         catch(error){
-            setIsCorrect(false);
+            setisBlocked(false);
             return
         }
 
@@ -39,7 +39,7 @@ export default function PilotInf(){
     return(
    
         <main className='pilotInf'>
-              {status === 'rejected' && <Alert setIsCorrect={setIsCorrect} message='Pilot is already save'/>}
+              {status === 'rejected' && <Alert setisBlocked={setisBlocked} message='Pilot is already save'/>}
             <div className='buttons-control'>
                 <button className='controll' onClick={() => HandleSavePilot(currentPilot.idPilot)}>Save Pilot</button>
                 <button className='controll' onClick={() => HandleComporation(currentPilot)}>Add to comparation</button>

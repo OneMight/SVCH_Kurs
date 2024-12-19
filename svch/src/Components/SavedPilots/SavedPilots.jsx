@@ -21,10 +21,9 @@ export default function SavedPilots(){
     if(status === 'loading' || status === null){
         return <div>loading</div>
     }
-
     const data = savedPilots.data[0].Pilots || [];
     
-    console.log(data)
+
     const SwitchRight = ()=>{
         if(currenctpage + 1 > savedPilots.pages){
             alert("Максимальная страницы");
@@ -69,29 +68,16 @@ export default function SavedPilots(){
     
         pdfDoc.save(`${user.name}_Report.pdf`);
     }
-    
+    console.log(data)
+    if(data.length == 0 || data === null){
+        return <h2>You don't save any Pilots</h2>
+    }
     return(
         <main className='pilot-main'>
-            {data.length === 0 ? (
-                <><p className='error-Saved-Pilots'>You don't save any Pilots</p></>
-            ):(
+           
                 <>
                 <button className='button-user' onClick={generate}>Report</button>
                 <section className='filters-and-pilots'>
-                    <article className='filters-div'> 
-                        <p>Filters</p>
-                        <div className='filters'>
-                            <label>
-                                <input type="checkbox" name="Formula1" id=""/> Formula 1
-                            </label>
-                            <label>
-                                <input type="checkbox" name="Gt3" id=""/> Gt3
-                            </label>
-                            <label>
-                                <input type="checkbox" name="Gt4" id=""/> Gt4
-                            </label>
-                        </div>
-                    </article>
                     <div className='pilots-div'>
                         <OnePilotCon pilot = {data}/>
                     </div>
@@ -102,7 +88,7 @@ export default function SavedPilots(){
                     </div>
                 </section>
                 </>
-            )}
+            
        
 
     </main>

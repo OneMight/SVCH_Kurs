@@ -6,7 +6,7 @@ import {fetchPilots, searchPilots} from '../../store/Slices/pilotsSlicer'
 export default function PilotsComp(){
     const [currenctpage, setPage] = useState(1);
     const [search, setSearch] = useState('')
-    const { pilots } = useSelector(state => state.pilots)
+    const { pilots,status,error } = useSelector(state => state.pilots)
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(fetchPilots(currenctpage));
@@ -48,6 +48,12 @@ export default function PilotsComp(){
             setPage(newPage)
             dispatch(fetchPilots(newPage));
         }
+    }
+    if(status ==='loading'){
+        return <h2>Loading</h2>
+    }
+    if(error){
+        return <h2>An Error occured: {error}</h2>
     }
     return(
         <main className='pilot-main'>

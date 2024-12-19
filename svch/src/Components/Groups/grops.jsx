@@ -28,11 +28,15 @@ const data = groups.data || [];
         }
     }
 
-
+    if(status ==='loading'){
+        return <h2>Loading</h2>
+    }
+    if(error){
+        return <h2>An Error occured: {error}</h2>
+    }
     return(
         <main className='group-main'>
-            {status === 'loading' && <h2>Loading</h2>}
-            {error && <h2>An Error occured: {error}</h2>}
+
             <div className='search-input'>
                 <input className='input' type="text" onChange={HandleSearch} value={search} placeholder='Search....'/>
                 <button className='search' onClick={() =>Search()}><img src="./images/search-normal.png" alt="" /></button>

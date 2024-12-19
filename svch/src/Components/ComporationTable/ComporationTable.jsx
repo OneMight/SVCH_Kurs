@@ -10,7 +10,9 @@ import { styled } from '@mui/material/styles';
 import TableCell,{ tableCellClasses } from '@mui/material/TableCell';
 import './ComporationTable.css'
 import { useSelector } from 'react-redux';
+import {jsPDF,} from 'jspdf'
 
+import autoTable from "jspdf-autotable"
 
 function createData(Name,Year, Team, Starts, Points, Wins, Podiums,PoulPos,PosInSeason) {
     return { Name,Year, Team, Starts, Points, Wins, Podiums, PoulPos, PosInSeason };
@@ -46,7 +48,37 @@ export default function ComporationTable(){
         },
       }));
     
+      function generate() {
+        const pdfDoc = new jsPDF();
+        pdfDoc.setFont("times", "bold");
+        pdfDoc.setFontSize(14);
+        pdfDoc.setCharSpace(0.5);
+        const formattedDate = new Date().toLocaleDateString();
+        pdfDoc.text(`Comporations pilots report. Date: ${formattedDate}`, 10, 10);
+        const columns = ["Name", "Year","Starts","Points",'Wins','Pos in season'];
+        const rows = pilots.map(stat => [stat.PilotName,stat.PilotStats[0].year,
+          stat.PilotStats[0].Starts, stat.PilotStats[0].Scores,
+           stat.PilotStats[0].Wins, stat.PilotStats[0].PlaceInSeason ]);
 
+        autoTable(pdfDoc, {
+          theme: "grid",
+          headStyles: { fontSize: 10 },
+          bodyStyles: { fontSize: 8, fontStyle: "italic" },
+          head:[columns],
+          body: rows,
+          startY: 40,
+          columnStyles: {
+            0: { cellWidth: 50 }, 
+            1: { cellWidth: 20 },
+            2: { cellWidth: 20 },
+            3: { cellWidth: 20 }, 
+            4: { cellWidth: 20 },
+            5: { cellWidth: 40 },
+        },
+        });
+    
+        pdfDoc.save("ComporationsPilotsReport.pdf");
+  }
     return(
         <main className='comporation-main'>
             {pilots.length ===0 ?(
@@ -91,6 +123,7 @@ export default function ComporationTable(){
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <button className="button-user"  onClick={generate}>Create report</button>
                 </div>
             )}
         </main>

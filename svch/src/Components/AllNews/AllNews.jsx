@@ -14,11 +14,11 @@ export default function AllNews(){
     const newsArray = news.data
 
     if(status === 'rejected'){
-        return <div>Error: {error}</div>
+        return <h2>Error: {error}</h2>
     }
     if(status === 'loading' || status ===null || news === null){
        
-        return <div>Loading: </div>
+        return <h2>Loading: </h2>
     }
     
     return(

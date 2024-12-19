@@ -8,7 +8,6 @@ export default function TransitionAlerts(props) {
     const [open, setOpen] = React.useState(true);
     const closed = () =>{
       setOpen(false);
-      props.setIsCorrect(true);
       props.setisBlocked(false);
     }
 

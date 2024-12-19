@@ -17,6 +17,9 @@ body {
   justify-content: space-between;
   
 }
+h2{
+  text-align: center;
+}
 body::-webkit-scrollbar{
     width: 6px;
     background-color: #2C2B2B;

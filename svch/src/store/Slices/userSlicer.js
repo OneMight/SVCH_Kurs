@@ -5,7 +5,6 @@ export const fetchUsers = createAsyncThunk(
     'users/fetchUsers', async(_,{rejectWithValue,dispatch}) =>{
         try{
             const response = await axios.get(`${process.env.REACT_APP_API_URL}user/`)
-            console.log(response.data)
             dispatch(setUsers(response.data))
             return response.data;
             }
@@ -69,9 +68,9 @@ export const EditInformation = createAsyncThunk(
     'users/EditInformation', async({name,age,nationality},{rejectWithValue}) =>{
         try{
             const user = JSON.parse(localStorage.getItem('currentUser'));
-            console.log(user)
+       
             const id = user.user.id
-            console.log(id)
+           
             const response = await axios.put(`${process.env.REACT_APP_API_URL}user/updateUser/${id}`,{
                 name: name,
                 age: age,
