@@ -61,13 +61,13 @@ class TeamController {
 
     async updateTeam(req, res) {
        const {id} = req.params
-        const {teamName, description, photoTeam } = req.body
+        const {teamName, description, photoTeam,GroupIdGroup} = req.body
         try {
             const team = await Team.findByPk(id);
             if(!team){
                 return res.status(404).json({message: "Team is not found by id"})
             }
-            await team.update({teamName,description,photoTeam})
+            await team.update({teamName,description,photoTeam,GroupIdGroup})
             return res.status(201).json({message: `Team ${id} is updated`})
 
 

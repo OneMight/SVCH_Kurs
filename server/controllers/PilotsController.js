@@ -1,5 +1,5 @@
 
-const { Pilot, Team,Trophie,PilotStat,BestCircuit } = require('../models/models')
+const { Pilot, Team,Trophie,PilotStat,BestCircuit, Group } = require('../models/models')
 const { Op } = require('sequelize');
 class PilotController{
 
@@ -24,8 +24,12 @@ class PilotController{
             order: [[sortBy,order]],
             include:[{
                 model:Team,
-                attributes:['teamName','photoTeam']
- 
+                attributes:['teamName','photoTeam'],
+                include: [{
+                    model: Group,
+                    as: 'Group',
+                    attributes: ['groupName']
+                }]
             }]
          });
          return res.json({
@@ -42,8 +46,9 @@ class PilotController{
                 include:[{
                     model:Team,
                     attributes:['teamName','photoTeam', 'desciption'],
-                  
+               
                 },
+               
                 {
                     model:Trophie,
                     attributes:['idTrophie','nameTrophie', 'imageTrophie']

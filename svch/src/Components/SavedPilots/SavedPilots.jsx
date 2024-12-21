@@ -10,18 +10,20 @@ export default function SavedPilots(){
     const userData = JSON.parse(localStorage.getItem('currentUser'))
     const user = userData.user
     const [currenctpage, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
     const {status} = useSelector(state => state.pilots)
     const  savedPilots  = useSelector(state => state.pilots.savedPilots)
     const dispatch = useDispatch()
     useEffect(()=>{
-        dispatch(getSavedPilots());
+        const fetchPilots = async ()=>{
+            setIsLoading(true);
+           await dispatch(getSavedPilots());
+           setIsLoading(false);
+        }
+        fetchPilots()
        
     },[])
-    
-    if(status === 'loading' || status === null){
-        return <div>loading</div>
-    }
-    const data = savedPilots.data[0].Pilots || [];
+   
     
 
     const SwitchRight = ()=>{
@@ -68,10 +70,15 @@ export default function SavedPilots(){
     
         pdfDoc.save(`${user.name}_Report.pdf`);
     }
-    console.log(data)
-    if(data.length == 0 || data === null){
-        return <h2>You don't save any Pilots</h2>
+
+    if(isLoading){
+        return <div>loading...</div>
     }
+      const data = savedPilots?.data?.[0]?.Pilots || [];
+      if (data.length === 0) {
+        return <h2>You don't save any pilot</h2>;
+      }
+
     return(
         <main className='pilot-main'>
            

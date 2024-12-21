@@ -17,7 +17,6 @@ export default function App() {
     let location = useLocation();
     const token = localStorage.getItem('token')
     if (!token) {
-      
       return <Navigate to="/registration" state={{ from: location }} replace />;
     }
   

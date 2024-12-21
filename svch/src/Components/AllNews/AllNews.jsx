@@ -25,7 +25,7 @@ export default function AllNews(){
         <main className='news-main'>
             <div className='help-div'>
                 <p className='title-news-main'>All news in autosport</p>
-                <div>
+                <div className='news-all-news'>
                     {newsArray.map(data =>(
                         <article className='news' key={data.idNews}>
                             <div className='news-title-con'>

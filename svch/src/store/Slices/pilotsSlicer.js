@@ -104,7 +104,7 @@ const pilotSlicer = createSlice({
             state.comporationPilots = [...state.comporationPilots, action.payload]
         },
         addSavedPilots(state,action){
-            state.savedPilots = [...state.savedPilots,action.payload]
+            state.savedPilots = action.payload
         }
     },
     extraReducers: (builder) =>{
