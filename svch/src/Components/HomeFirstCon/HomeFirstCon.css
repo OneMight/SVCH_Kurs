@@ -1,0 +1,134 @@
+.first-con{
+   position: relative;
+    background-repeat: no-repeat;
+    background-size:cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    height: 1024px;
+    
+}
+.video-background{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    min-width: 100%;
+    min-height: 1024px;
+    width: auto;
+    z-index: -1000;
+    overflow: hidden;
+}
+.racing{
+ color: #AF2B2B;
+}
+#Back-video{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 135%;
+    width: auto;
+    height: auto;
+    z-index: -1000;
+    transform: translateX(-50%) translateY(-50%);
+}
+.Center-text{
+    width: 650px;
+    text-align: center;
+    font-size: 96px;
+    color: #ffffff;
+    margin-bottom: 100px;
+    line-height: 200%;
+}
+
+.button{
+    width: 300px;
+    background-color: #1F1F1F;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 15px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #A8A8A8;
+    padding: 15px 0;
+    border: none;
+    margin-bottom: 50px;
+    transition: all, 0.2s;
+    text-decoration: none;
+}
+.button-for-reg-log{
+    width: 45%;
+   min-width: 700px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.logining{
+    background-color: #511111;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+.registration:hover{
+    background-color: #2b2a2a;
+    color: #cac8c8;
+}
+.logining:hover{
+    background-color: #771818;
+    color: #cac8c8;
+}
+
+@media screen and (max-width: 768px) {
+    .button-for-reg-log{
+        width: 100%;
+        justify-content: space-around;
+        min-width: auto;
+    }
+    .Center-text{
+        width: 70%;
+        font-size: 60px;
+        margin: 0;
+    }
+    .button{
+        width: 200px;
+    }
+
+    .first-con{
+        max-height: 900px;
+    }
+    .video-background{
+        min-height: 900px;
+    }
+    
+}
+@media screen and (max-width: 500px) {
+    .button-for-reg-log{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:320px) {
+    .Center-text{
+        width: 90%;
+        font-size: 40px;
+        margin: 0;
+        margin-bottom: 70px;
+        line-height: normal
+    }
+    .button-for-reg-log{
+        flex-direction: column;
+    }
+    .first-con{
+        max-height: 650px;
+    }
+    .video-background{
+        min-height: 650px;
+       
+    }
+   
+}

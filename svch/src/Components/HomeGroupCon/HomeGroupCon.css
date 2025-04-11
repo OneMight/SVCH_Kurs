@@ -1,0 +1,60 @@
+.main-home-group-con{
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    background-image: none;
+   
+    overflow-x: hidden;
+   
+}
+.con-group{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin: 30px;
+}
+.Title{
+    color: #AF2B2B;
+    font-size: 86px;
+    text-align: start;
+    margin: 0;
+}
+.text{
+    font-size: 30px;
+    text-align: center;
+    width: 600px;
+}
+
+.image{
+    width: 100%;
+    opacity: 0;
+    transform: translateX(-600px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.image.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@media screen and (max-width: 768px) {
+
+    .image{
+    
+      transform: translateX(0);
+    }
+    .text{
+        width: 90%;
+    }
+}
+@media screen and (max-width: 320px) {
+    .Title{
+        font-size: 70px;
+    }
+    .text{
+        font-size: 25px;
+    }
+}

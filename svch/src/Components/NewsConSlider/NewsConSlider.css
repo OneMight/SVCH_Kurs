@@ -1,0 +1,86 @@
+.Home-news-con{
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 35px;
+    width: 100%;
+    min-height: 700px;
+    overflow-x: hidden;
+    
+}
+.container-slider{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    height: 450px; 
+    overflow: hidden;
+}
+.slider-con-and-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    flex-direction: column;
+    width: 98%;
+}
+.con-for-slider{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+   
+    z-index: 2;
+}
+
+.slider{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    transition: transform 0.5s ease-in-out;
+    flex-wrap: nowrap;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.more-news-button{
+    width: 320px;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    background-color: #221F1F;
+    transition: all, 0.2s;
+    text-decoration: none;
+}
+.more-news-button > p{
+    color: #A8A8A8;
+    font-size: 24px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.more-news-button:hover{
+    background-color: #3b3a3a;
+    color: #eeeeee;
+    cursor: pointer;
+}
+
+.slider-button:hover{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 320px){
+    .Home-news-con{
+        display: none;
+    }
+}

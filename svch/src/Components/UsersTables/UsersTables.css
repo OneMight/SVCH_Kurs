@@ -1,0 +1,15 @@
+.admin-table{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px 0;
+}
+.title-table{
+    font-size: 20px;
+}
+.table{
+    width: 80%;
+    margin: 30px 0;
+}
