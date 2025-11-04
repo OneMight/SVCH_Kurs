@@ -45,7 +45,7 @@ import Alert from '../ReadyToUseComponents/alert.jsx'
             alert(error.message)
         }
         else{
-            console.log("Результат регистрации:", resultAction.payload);
+          
             localStorage.setItem('token',resultAction.payload.refreshToken);
             navigate('/')
         }
