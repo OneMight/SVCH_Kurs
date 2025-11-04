@@ -31,7 +31,7 @@ export const getByIdPilot = createAsyncThunk(
             const response = await axios.get(`${process.env.REACT_APP_API_URL}pilot/${id}`)
             return response.data
         }catch(error){
-            console.log('Find pilot error');
+
             return rejectWithValue(error.message);
         }
     }
@@ -45,7 +45,7 @@ export const getSavedPilots = createAsyncThunk(
             dispatch(addSavedPilots(response.data))
             return response.data
         }catch(error){
-            console.log('Find Saved pilot error'+error);
+
             return rejectWithValue(error.message);
         }
     }

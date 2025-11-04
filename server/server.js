@@ -18,8 +18,8 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:3000', // Замените на адрес вашего фронтенда
-    credentials: true //  Важно! Разрешает отправку кук
+    origin: ['http://localhost:3000'],
+    credentials: true 
 }));
 app.use('/api', routes);
 

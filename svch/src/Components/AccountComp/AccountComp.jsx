@@ -22,7 +22,7 @@ export default function AccountComp(){
 
     const handleSave = (name, age,nationality) => {
         dispatch(EditInformation({ name, age, nationality}))
-        console.log('Saving user data:', editedUser);
+
         setEditing(false);
         document.location.reload();
         

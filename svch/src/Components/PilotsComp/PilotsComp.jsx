@@ -16,7 +16,6 @@ export default function PilotsComp(){
     },[])
   
     let data = pilots.data || [];
-    console.log(data)
 
     if (selectedFilters.length > 0) {
         data = data.filter(pilot => selectedFilters.includes(pilot.Team?.Group?.groupName.trim()));

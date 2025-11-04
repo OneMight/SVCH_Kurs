@@ -76,7 +76,6 @@ export const EditInformation = createAsyncThunk(
                 age: age,
                 nationality: nationality
             })
-            console.log('asdasd')
             localStorage.setItem('currentUser',JSON.stringify(response.data));
             return response.data
         }
