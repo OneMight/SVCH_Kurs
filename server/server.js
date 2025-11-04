@@ -39,7 +39,7 @@ const start = async () => {
       await sequelize.authenticate();
       console.log('Соединение с базой данных успешно!');
       
-      app.listen(PORT, () => {
+      app.listen(PORT, '0.0.0.0', () => {
           console.log(`Server running at http://localhost:${PORT}`);
       });
   } catch (e) {
