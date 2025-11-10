@@ -1,13 +1,13 @@
-## License
+# License
 This project operates under license [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 # SVCH_Kurs
-# [Figma](https://www.figma.com/design/BfUTpLpwD98V9mxG8WR0rg/Autosport?node-id=0-1&p=f&t=Q1RrIRafPcCPqnqq-0)
+#[Figma](https://www.figma.com/design/BfUTpLpwD98V9mxG8WR0rg/Autosport?node-id=0-1&p=f&t=Q1RrIRafPcCPqnqq-0)
 
 # About Project
-Проект предсталвяет собой приложение для любителей автоспорта. Здесь можно посмотреть информацию о командах, классах и пилотах автоспорта, а также их подробную информацию, такую как: 
-* Количество выйгранных трофеев
-* Инофрмация по сезонам
+Проект представляет собой приложение для любителей автоспорта. Здесь можно посмотреть информацию о командах, классах и пилотах автоспорта, а также их подробную информацию, такую как: 
+* Количество выигранных трофеев
+* Информация по сезонам
 * Предыдущие и текущие команды
 
 Также после авторизации пользователь можно сравнивать пилотов по их характеристикам.
@@ -25,19 +25,22 @@ https://docs.docker.com/desktop/
 ```
 POSTGRES_USER=postgres // имя пользователя
 POSTGRES_PASSWORD=my_strong_password // пароль пользователя
-POSTGRES_DB=AutoSport // наименование бд
+POSTGRES_DB=AutoSport // наименование БД
 DB_HOST=db
-DB_PORT=5432 // порт бд
+DB_PORT=5432 // порт БД
 
 NODE_ENV=development
 SERVER_PORT=5000
+
 После этого необходимо установить все необходимые пакеты. Для этого 
 откройте терминал в Visual Studio Code сочетанием клавиш «ctrl+`» и разделите 
 его на две части. В одной напишите cd server, а во второй cd svch. Далее загрузите 
 все необходимые модули с помощью команды: 
+
 ```
-npm install --loglevel silent 
+npm install --loglevel silent
 ```
+
 ```
 В двух модулях приложения требуется создать Dockerfile. После этого создается файл docker-compose.yaml в корне проекта. Когда все модули подключены, заходим в терминал и вводим команду:
 ```
@@ -55,5 +58,5 @@ localhost:3000
 bash backup.sh // выполняет резервное копирования базы данных
 ```
 ```
-bash restore.sh // восстанавливание контейнер базы данных и сервера, восстанавливая информацию в бд
+bash restore.sh // восстановление контейнеров базы данных и сервера. 
 ```
